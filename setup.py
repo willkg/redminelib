@@ -37,4 +37,8 @@ setup(
     keywords="redmine scraper",
     zip_safe=True,
     packages=find_packages(),
+    test_suite="nose.collector",
+    install_requires=[
+        "nose",
+        ]
     )

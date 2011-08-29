@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>GNU MediaGoblin - Feature #519: CloudFilesStorage.get_file() performance issue. - FooCorp Tracker</title>
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<link href="/themes/alternate/stylesheets/application.css?1267352888" media="all" rel="stylesheet" type="text/css" />
+<script src="/javascripts/prototype.js?1251746896" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/application.js?1267352889" type="text/javascript"></script>
+<link href="/stylesheets/jstoolbar.css?1267352889" media="screen" rel="stylesheet" type="text/css" />
+<!--[if IE]>
+    <style type="text/css">
+      * html body{ width: expression( document.documentElement.clientWidth < 900 ? '900px' : '100%' ); }
+      body {behavior: url(/stylesheets/csshover.htc?1267352889);}
+    </style>
+<![endif]-->
+
+<!-- page specific tags -->
+
+    <link href="http://bugs.foocorp.net/issues/519.atom" rel="alternate" title="GNU MediaGoblin - Feature #519: CloudFilesStorage.get_file() performance issue." type="application/atom+xml" />
+    <link href="/stylesheets/scm.css?1267352889" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a href="/login" class="login">Sign in</a></li>
+<li><a href="/account/register" class="register">Register</a></li></ul>    </div>
+    
+    <ul><li><a href="/" class="home">Home</a></li>
+<li><a href="/projects" class="projects">Projects</a></li>
+<li><a href="http://www.redmine.org/guide" class="help">Help</a></li></ul></div>
+      
+<div id="header">
+    <div id="quick-search">
+        <form action="/search/index/mediagoblin" method="get">
+        <input name="issues" type="hidden" value="1" />
+        <a href="/search/index/mediagoblin" accesskey="4">Search</a>:
+        <input accesskey="f" class="small" id="q" name="q" size="20" type="text" />
+        </form>
+        
+    </div>
+    
+    <h1>GNU MediaGoblin</h1>
+    
+    <div id="main-menu">
+        <ul><li><a href="/projects/mediagoblin" class="overview">Overview</a></li>
+<li><a href="/projects/mediagoblin/activity" class="activity">Activity</a></li>
+<li><a href="/projects/mediagoblin/roadmap" class="roadmap">Roadmap</a></li>
+<li><a href="/projects/mediagoblin/issues.html" class="issues selected">Issues</a></li>
+<li><a href="/projects/mediagoblin/news" class="news">News</a></li>
+<li><a href="/projects/mediagoblin/wiki" class="wiki">Wiki</a></li></ul>
+    </div>
+</div>
+
+<div class="" id="main">
+    <div id="sidebar">        
+        
+    <h3>Issues</h3>
+<a href="/projects/mediagoblin/issues.html?set_filter=1">View all issues</a><br />
+
+<a href="/projects/mediagoblin/issues/report">Summary</a><br />
+
+
+
+
+
+
+
+<h3>Custom queries</h3>
+
+<a href="/projects/mediagoblin/issues.html?query_id=2">Graphic design tickets</a><br />
+<a href="/projects/mediagoblin/issues.html?query_id=1">Open tickets</a><br />
+<a href="/projects/mediagoblin/issues.html?query_id=3">Simple Issues</a><br />
+
+
+
+        
+    </div>
+    
+    <div id="content">
+				
+        <div class="contextual">
+
+
+
+<span id="watcher"></span>
+
+
+
+
+</div>
+
+
+<h2>Feature #519</h2>
+
+<div class="issue status-5 priority-2 closed details">
+        <img class="gravatar" alt="" width="50" height="50" src="http://www.gravatar.com/avatar/9f273daada758bf50181cb6c0159412f?rating=PG&amp;size=50&amp;default=identicon" />
+        <h3>CloudFilesStorage.get_file() performance issue.</h3>
+        <p class="author">
+        Added by <a href="/users/536">Joar Wandborg</a> <a href="/projects/mediagoblin/activity?from=2011-08-24" title="08/24/2011 06:08 pm">4 days</a> ago.
+        
+        Updated <a href="/projects/mediagoblin/activity?from=2011-08-27" title="08/27/2011 10:07 pm">1 day</a> ago.
+        
+        </p>
+
+<table class="attributes">
+<tr>
+    <th class="status">Status:</th><td class="status">Closed</td>
+    <th class="start-date">Start:</th><td class="start-date">08/24/2011</td>
+</tr>
+<tr>
+    <th class="priority">Priority:</th><td class="priority">Normal</td>
+    <th class="due-date">Due date:</th><td class="due-date"></td>
+</tr>
+<tr>
+    <th class="assigned-to">Assigned to:</th><td class="assigned-to"><img class="gravatar" alt="" width="14" height="14" src="http://www.gravatar.com/avatar/281171bbfbd6746f508b86748487da84?rating=PG&amp;size=14&amp;default=identicon" /><a href="/users/485">Christopher Webber</a></td>
+    <th class="progress">% Done:</th><td class="progress"><table class="progress" style="width: 80px;"><tr><td class="closed" style="width: 50%;"></td><td class="todo" style="width: 50%;"></td></tr></table><p class="pourcent">50%</p></td>
+</tr>
+<tr>
+    <th class="category">Category:</th><td class="category">Programming</td>
+    
+</tr>
+<tr>
+    <th class="fixed-version">Target version:</th><td class="fixed-version"><a href="/versions/show/5">0.0.5</a></td>
+    
+</tr>
+
+
+</table>
+<hr />
+
+<div class="contextual">
+
+</div>
+                              
+<p><strong>Description</strong></p>
+<div class="wiki">
+<p>For the thumb listings such as the index page, gallery page a call to cloudfiles is made for every thumbnail on the page.</p>
+
+
+	<p>CloudFilesStorage should be changed to save container_url on <i>init</i>, and then use self._resolve_filepath() to generate the filepath without verifying that the file exists, just like BasicFileStorage does.</p>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+
+  <div id="change-1352" class="journal">
+    <h4><div style="float:right;"><a href="/issues/519#note-1">#1</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/9f273daada758bf50181cb6c0159412f?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-1"></a>
+		Updated by <a href="/users/536">Joar Wandborg</a> <a href="/projects/mediagoblin/activity?from=2011-08-24" title="08/24/2011 07:14 pm">4 days</a> ago</h4>
+    
+    <ul>
+    
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Feedback</i></li>
+    
+       <li><strong>Assigned to</strong> changed from <i>Joar Wandborg</i> to <i>Christopher Webber</i></li>
+    
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+    
+    </ul>
+    <div class="wiki" id="journal-1352-notes"><p>Hi Christopher, merge request filed at <a class="external" href="https://gitorious.org/mediagoblin/mediagoblin/merge_requests/19">https://gitorious.org/mediagoblin/mediagoblin/merge_requests/19</a></p>
+
+
+	<p>Feedback if any much appreciated.</p>
+
+
+	<p>Cheers,</p></div>
+  </div>
+  
+
+  <div id="change-1357" class="journal">
+    <h4><div style="float:right;"><a href="/issues/519#note-2">#2</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/281171bbfbd6746f508b86748487da84?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-2"></a>
+		Updated by <a href="/users/485">Christopher Webber</a> <a href="/projects/mediagoblin/activity?from=2011-08-27" title="08/27/2011 10:07 pm">1 day</a> ago</h4>
+    
+    <ul>
+    
+       <li><strong>Status</strong> changed from <i>Feedback</i> to <i>Closed</i></li>
+    
+    </ul>
+    <div class="wiki" id="journal-1357-notes"><p>Merged!</p></div>
+  </div>
+  
+
+
+</div>
+
+
+<div class="contextual">
+
+
+
+<span id="watcher2"></span>
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+
+<p class="other-formats">Also available in:
+	<span><a href="/issues/519.atom" class="atom" rel="nofollow">Atom</a></span>
+	<span><a href="/issues/519.pdf" class="pdf" rel="nofollow">PDF</a></span>
+</p>
+
+
+
+
+
+
+
+        
+				<div style="clear:both;"></div>
+    </div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+	
+<div id="footer">
+    Powered by <a href="http://www.redmine.org/">Redmine</a> &copy; 2006-2010 Jean-Philippe Lang
+</div>
+</div>
+
+</body>
+</html>

@@ -71,7 +71,7 @@ class RedmineScraper:
             for change in changes:
                 print change
 
-        print issue
+        return issue
 
 
     def get_issue(self, url):
