@@ -14,7 +14,8 @@ import urllib
 import csv
 from urlparse import urlparse, urljoin
 from StringIO import StringIO
-from lxml import etree
+import lxml.etree
+import lxml.html
 
 
 class RedmineScraper:
@@ -29,13 +30,10 @@ class RedmineScraper:
         """
         issue = {}
 
-        data = data.replace("&copy;", "(C)")
-        tree = etree.parse(StringIO(data))
-
+        tree = lxml.html.parse(StringIO(data))
         root = tree.getroot()
-        # http://www.w3.org/1999/xhtml
 
-        topdivs = root.findall(".//{http://www.w3.org/1999/xhtml}div")
+        topdivs = root.findall(".//div")
         history = None
         details = None
         for mem in topdivs:
@@ -47,24 +45,29 @@ class RedmineScraper:
         if details is None:
             raise ValueError("No details section in this bug?")
 
-        title = details.find(".//{http://www.w3.org/1999/xhtml}h3")
+        title = details.find(".//h3")
         issue["title"] = title.text
 
-        author_and_date = details.findall(".//{http://www.w3.org/1999/xhtml}p[@class='author']//{http://www.w3.org/1999/xhtml}a")
+        author_and_date = details.findall(".//p[@class='author']//a")
         issue["author"] = author_and_date[0].text
         issue["creation_date"] = author_and_date[1].attrib["title"]
 
-        attributes = details.find(".//{http://www.w3.org/1999/xhtml}table[@class='attributes']")
-        tds = attributes.findall(".//{http://www.w3.org/1999/xhtml}td")
+        # the attributes table in redmine has td elements that have
+        # semantic class names.  for example, one td has a class name
+        # of "status".
+        #
+        # i abuse that fact to just grab all the data in key/value pairs.
+        attributes = details.find(".//table[@class='attributes']")
+        tds = attributes.findall(".//td")
         for mem in tds:
             issue[mem.attrib["class"]] = mem.text
 
-        desc = details.find(".//{http://www.w3.org/1999/xhtml}div[@class='wiki']")
+        desc = details.find(".//div[@class='wiki']")
         # FIXME - should convert this to something useful somehow
-        issue["description"] = etree.tostring(desc, pretty_print=True).strip()
+        issue["description"] = lxml.etree.tostring(desc, pretty_print=True).strip()
 
         if history is not None:
-            changes = history.findall(".//{http://www.w3.org/1999/xhtml}div[@class='journal']")
+            changes = history.findall(".//div[@class='journal']")
             for change in changes:
                 print change
 
