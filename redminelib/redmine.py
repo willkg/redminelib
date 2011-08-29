@@ -60,7 +60,11 @@ class RedmineScraper:
         attributes = details.find(".//table[@class='attributes']")
         tds = attributes.findall(".//td")
         for mem in tds:
-            issue[mem.attrib["class"]] = mem.text
+            key = mem.attrib["class"]
+            if mem.text:
+                issue[key] = mem.text
+            else:
+                issue[key] = "".join(mem.itertext())
 
         desc = details.find(".//div[@class='wiki']")
         # FIXME - should convert this to something useful somehow
@@ -70,6 +74,8 @@ class RedmineScraper:
             changes = history.findall(".//div[@class='journal']")
             for change in changes:
                 print change
+
+        print issue
 
         return issue
 
