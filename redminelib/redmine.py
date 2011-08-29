@@ -33,19 +33,13 @@ class RedmineScraper:
         tree = lxml.html.parse(StringIO(data))
         root = tree.getroot()
 
-        topdivs = root.findall(".//div")
-        history = None
-        details = None
-        for mem in topdivs:
-            if "details" in mem.attrib.get("class", ""):
-                details = mem
-            elif mem.attrib.get("id", "") == "history":
-                history = mem
+        details = root.cssselect("div.details")[0]
+        history = root.cssselect("div#history")[0]
 
         if details is None:
             raise ValueError("No details section in this bug?")
 
-        title = details.find(".//h3")
+        title = details.cssselect("h3")[0]
         issue["title"] = title.text
 
         author_and_date = details.findall(".//p[@class='author']//a")
@@ -57,8 +51,8 @@ class RedmineScraper:
         # of "status".
         #
         # i abuse that fact to just grab all the data in key/value pairs.
-        attributes = details.find(".//table[@class='attributes']")
-        tds = attributes.findall(".//td")
+        attributes = details.cssselect("table.attributes")[0]
+        tds = attributes.cssselect("td")
         for mem in tds:
             key = mem.attrib["class"]
             if mem.text:
@@ -66,12 +60,12 @@ class RedmineScraper:
             else:
                 issue[key] = "".join(mem.itertext())
 
-        desc = details.find(".//div[@class='wiki']")
+        desc = details.cssselect("div.wiki")[0]
         # FIXME - should convert this to something useful somehow
         issue["description"] = lxml.etree.tostring(desc, pretty_print=True).strip()
 
         if history is not None:
-            changes = history.findall(".//div[@class='journal']")
+            changes = history.cssselect("div.journal")
             for change in changes:
                 print change
 
