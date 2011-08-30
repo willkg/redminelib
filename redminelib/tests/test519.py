@@ -27,6 +27,8 @@ def test_519():
     eq_(issue["creation-date"], "08/24/2011 06:08 pm")
     eq_(issue["last-updated-date"], "08/27/2011 10:07 pm")
 
+    eq_(issue["description"], u'For the thumb listings such as the index page, gallery page a call to\ncloudfiles is made for every thumbnail on the page.\n\nCloudFilesStorage should be changed to save container_url on _init_, and then\nuse self._resolve_filepath() to generate the filepath without verifying that\nthe file exists, just like BasicFileStorage does.\n\n')
+
     # details table
     eq_(issue["priority"], "Normal")
     eq_(issue["status"], "Closed")
@@ -59,6 +61,15 @@ def test_519():
             "oldvalue": "0",
             "newvalue": "50"
             })
-    eq_(hist1["comment"], '<div class="wiki" id="journal-1352-notes"><p>Hi Christopher, merge request filed at <a class="external" href="https://gitorious.org/mediagoblin/mediagoblin/merge_requests/19">https://gitorious.org/mediagoblin/mediagoblin/merge_requests/19</a></p>\n\n\n\t<p>Feedback if any much appreciated.</p>\n\n\n\t<p>Cheers,</p></div>\n  ')
+    eq_(hist1["comment"], u'Hi Christopher, merge request filed at\n[https://gitorious.org/mediagoblin/mediagoblin/merge_requests/19][1]\n\nFeedback if any much appreciated.\n\nCheers,\n\n   [1]: https://gitorious.org/mediagoblin/mediagoblin/merge_requests/19\n\n')
 
     hist2 = issue["history"][1]
+    eq_(hist2["date"], "08/27/2011 10:07 pm")
+    eq_(hist2["author"], "Christopher Webber")
+    props = hist2["properties"]
+    eq_(props[0], {
+            "property": "Status",
+            "oldvalue": "Feedback",
+            "newvalue": "Closed"
+            })
+    eq_(hist2["comment"], "Merged!\n\n")

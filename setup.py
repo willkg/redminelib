@@ -39,6 +39,7 @@ setup(
     packages=find_packages(),
     test_suite="nose.collector",
     install_requires=[
+        "html2text",
         "nose",
         ]
     )

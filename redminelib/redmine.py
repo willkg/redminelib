@@ -16,6 +16,10 @@ from urlparse import urlparse, urljoin
 from StringIO import StringIO
 import lxml.etree
 import lxml.html
+from html2text import html2text
+
+def textify(doc):
+    return html2text(lxml.html.tostring(doc).strip())
 
 
 class RedmineScraper:
@@ -49,9 +53,10 @@ class RedmineScraper:
         change["properties"] = change_items
 
         # FIXME - clean this up
-        change["comment"] = lxml.etree.tostring(doc.cssselect("div.wiki")[0])
+        change["comment"] = textify(doc.cssselect("div.wiki")[0])
 
         return change
+
 
     def parse_issue(self, data):
         """Takes in a string of an issue page in html, parses it, and
@@ -94,7 +99,7 @@ class RedmineScraper:
 
         desc = details.cssselect("div.wiki")[0]
         # FIXME - should convert this to something useful somehow
-        issue["description"] = lxml.etree.tostring(desc, pretty_print=True).strip()
+        issue["description"] = textify(desc)
 
         history = root.cssselect("div#history")[0]
 

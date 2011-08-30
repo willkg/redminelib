@@ -26,6 +26,8 @@ def test_501():
     eq_(issue["creation-date"], "08/16/2011 05:20 pm")
     eq_(issue["last-updated-date"], "08/18/2011 11:30 am")
 
+    eq_(issue["description"], u'Base.css uses several different ways to specify text sizes. I think it has a\nnice mix of px, em and percentages going on right now.\n\nThis should be fixed. I\'m not sure what the "right" way to do this is, so any\nhelp is welcome. I\'ll do some research and decide on what we should do, then\nmake the needed changes.\n\nSo yeah, this bug is mostly a memory aid.\n\n')
+
     # details table
     eq_(issue["priority"], "Normal")
     eq_(issue["status"], "Closed")
@@ -49,4 +51,4 @@ def test_501():
             "oldvalue": "New",
             "newvalue": "Closed"
             })
-    eq_(hist1["comment"], '''<div class="wiki" id="journal-1292-notes"><p>This has been fixed. We now use relative sizes (em) everywhere.</p>\n\n\n\t<p>I\'ve also cleaned up a few things: removed some unnecssary text size values and added some spacing.</p></div>\n  ''')
+    eq_(hist1["comment"], u"This has been fixed. We now use relative sizes (em) everywhere.\n\nI've also cleaned up a few things: removed some unnecssary text size values\nand added some spacing.\n\n")
