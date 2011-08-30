@@ -63,7 +63,7 @@ class RedmineScraper:
         root = tree.getroot()
 
         bug_id = root.cssselect("h2")[0].text
-        issue["id"] = bug_id.replace("Bug #", "")
+        issue["id"] = bug_id.split("#")[1]
 
         details = root.cssselect("div.details")[0]
 
