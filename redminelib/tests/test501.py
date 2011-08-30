@@ -24,6 +24,7 @@ def test_501():
     eq_(issue["title"], "Inconsistent font size specifications in css")
     eq_(issue["author"], "Jef van Schendel")
     eq_(issue["creation-date"], "08/16/2011 05:20 pm")
+    eq_(issue["last-updated-date"], "08/18/2011 11:30 am")
 
     # details table
     eq_(issue["priority"], "Normal")

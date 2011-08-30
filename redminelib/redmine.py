@@ -76,6 +76,7 @@ class RedmineScraper:
         author_and_date = details.cssselect("p.author a")
         issue["author"] = author_and_date[0].text
         issue["creation-date"] = author_and_date[1].attrib["title"]
+        issue["last-updated-date"] = author_and_date[2].attrib["title"]
 
         # the attributes table in redmine has td elements that have
         # semantic class names.  for example, one td has a class name
