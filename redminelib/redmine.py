@@ -24,6 +24,35 @@ class RedmineScraper:
     for a project in Redmine.
     """
 
+    def extract_change(self, doc):
+        """Takes a journal div and extracts the change information from
+        it.
+
+        Returns a dict.
+        """
+        change = {}
+
+        # FIXME - this is fragile
+        hrefs = doc.cssselect("a")
+        change["author"] = hrefs[2].text
+        change["date"] = hrefs[3].attrib["title"]
+
+        # extracts individual change items for this change
+        change_items = []
+        for item in doc.cssselect("ul li"):
+            change_items.append({
+                    "property": item.cssselect("strong")[0].text,
+                    "oldvalue": item.cssselect("i")[0].text,
+                    "newvalue": item.cssselect("i")[1].text
+                    })
+
+        change["properties"] = change_items
+
+        # FIXME - clean this up
+        change["comment"] = lxml.etree.tostring(doc.cssselect("div.wiki")[0])
+
+        return change
+
     def parse_issue(self, data):
         """Takes in a string of an issue page in html, parses it, and
         returns a dict containing all the useful stuff.
@@ -33,8 +62,10 @@ class RedmineScraper:
         tree = lxml.html.parse(StringIO(data))
         root = tree.getroot()
 
+        bug_id = root.cssselect("h2")[0].text
+        issue["id"] = bug_id.replace("Bug #", "")
+
         details = root.cssselect("div.details")[0]
-        history = root.cssselect("div#history")[0]
 
         if details is None:
             raise ValueError("No details section in this bug?")
@@ -64,10 +95,11 @@ class RedmineScraper:
         # FIXME - should convert this to something useful somehow
         issue["description"] = lxml.etree.tostring(desc, pretty_print=True).strip()
 
-        if history is not None:
-            changes = history.cssselect("div.journal")
-            for change in changes:
-                print change
+        history = root.cssselect("div#history")[0]
+
+        issue["history"] = [
+            self.extract_change(change)
+            for change in history.cssselect("div.journal")]
 
         print issue
 
