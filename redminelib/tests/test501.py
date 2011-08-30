@@ -44,8 +44,9 @@ def test_501():
     hist1 = issue["history"][0]
     eq_(hist1["date"], "08/18/2011 11:30 am")
     eq_(hist1["author"], "Jef van Schendel")
-    prop = hist1["properties"][0]
-    eq_(prop["property"], "Status")
-    eq_(prop["oldvalue"], "New")
-    eq_(prop["newvalue"], "Closed")
+    eq_(hist1["properties"][0], {
+            "property": "Status",
+            "oldvalue": "New",
+            "newvalue": "Closed"
+            })
     eq_(hist1["comment"], '''<div class="wiki" id="journal-1292-notes"><p>This has been fixed. We now use relative sizes (em) everywhere.</p>\n\n\n\t<p>I\'ve also cleaned up a few things: removed some unnecssary text size values and added some spacing.</p></div>\n  ''')
