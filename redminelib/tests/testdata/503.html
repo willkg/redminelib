@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>GNU MediaGoblin - Bug #503: If there are no next and previous media, the navigation buttons should not appear - FooCorp Tracker</title>
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<link href="/themes/alternate/stylesheets/application.css?1267352888" media="all" rel="stylesheet" type="text/css" />
+<script src="/javascripts/prototype.js?1251746896" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/application.js?1267352889" type="text/javascript"></script>
+<link href="/stylesheets/jstoolbar.css?1267352889" media="screen" rel="stylesheet" type="text/css" />
+<!--[if IE]>
+    <style type="text/css">
+      * html body{ width: expression( document.documentElement.clientWidth < 900 ? '900px' : '100%' ); }
+      body {behavior: url(/stylesheets/csshover.htc?1267352889);}
+    </style>
+<![endif]-->
+
+<!-- page specific tags -->
+
+    <link href="http://bugs.foocorp.net/issues/503.atom" rel="alternate" title="GNU MediaGoblin - Bug #503: If there are no next and previous media, the navigation buttons should not appear" type="application/atom+xml" />
+    <link href="/stylesheets/scm.css?1267352889" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a href="/login" class="login">Sign in</a></li>
+<li><a href="/account/register" class="register">Register</a></li></ul>    </div>
+    
+    <ul><li><a href="/" class="home">Home</a></li>
+<li><a href="/projects" class="projects">Projects</a></li>
+<li><a href="http://www.redmine.org/guide" class="help">Help</a></li></ul></div>
+      
+<div id="header">
+    <div id="quick-search">
+        <form action="/search/index/mediagoblin" method="get">
+        <input name="issues" type="hidden" value="1" />
+        <a href="/search/index/mediagoblin" accesskey="4">Search</a>:
+        <input accesskey="f" class="small" id="q" name="q" size="20" type="text" />
+        </form>
+        
+    </div>
+    
+    <h1>GNU MediaGoblin</h1>
+    
+    <div id="main-menu">
+        <ul><li><a href="/projects/mediagoblin" class="overview">Overview</a></li>
+<li><a href="/projects/mediagoblin/activity" class="activity">Activity</a></li>
+<li><a href="/projects/mediagoblin/roadmap" class="roadmap">Roadmap</a></li>
+<li><a href="/projects/mediagoblin/issues" class="issues selected">Issues</a></li>
+<li><a href="/projects/mediagoblin/news" class="news">News</a></li>
+<li><a href="/projects/mediagoblin/wiki" class="wiki">Wiki</a></li></ul>
+    </div>
+</div>
+
+<div class="" id="main">
+    <div id="sidebar">        
+        
+    <h3>Issues</h3>
+<a href="/projects/mediagoblin/issues?set_filter=1">View all issues</a><br />
+
+<a href="/projects/mediagoblin/issues/report">Summary</a><br />
+
+
+
+
+
+
+
+<h3>Custom queries</h3>
+
+<a href="/projects/mediagoblin/issues?query_id=2">Graphic design tickets</a><br />
+<a href="/projects/mediagoblin/issues?query_id=1">Open tickets</a><br />
+<a href="/projects/mediagoblin/issues?query_id=3">Simple Issues</a><br />
+
+
+
+        
+    </div>
+    
+    <div id="content">
+				
+        <div class="contextual">
+
+
+
+<span id="watcher"></span>
+
+
+
+
+</div>
+
+
+<h2>Bug #503</h2>
+
+<div class="issue status-4 priority-2 details">
+        <img class="gravatar" alt="" width="50" height="50" src="http://www.gravatar.com/avatar/c94dad3a25e1e3b95ececafb55643731?rating=PG&amp;size=50&amp;default=identicon" />
+        <h3>If there are no next and previous media, the navigation buttons should not appear</h3>
+        <p class="author">
+        Added by <a href="/users/542">Jef van Schendel</a> <a href="/projects/mediagoblin/activity?from=2011-08-20" title="08/20/2011 05:32 pm">9 days</a> ago.
+        
+        Updated <a href="/projects/mediagoblin/activity?from=2011-08-22" title="08/22/2011 09:29 am">8 days</a> ago.
+        
+        </p>
+
+<table class="attributes">
+<tr>
+    <th class="status">Status:</th><td class="status">Feedback</td>
+    <th class="start-date">Start:</th><td class="start-date">08/20/2011</td>
+</tr>
+<tr>
+    <th class="priority">Priority:</th><td class="priority">Normal</td>
+    <th class="due-date">Due date:</th><td class="due-date"></td>
+</tr>
+<tr>
+    <th class="assigned-to">Assigned to:</th><td class="assigned-to"><img class="gravatar" alt="" width="14" height="14" src="http://www.gravatar.com/avatar/18a4d95c96895ad5b045b27cdbbcfa91?rating=PG&amp;size=14&amp;default=identicon" /><a href="/users/616">Caleb Davis</a></td>
+    <th class="progress">% Done:</th><td class="progress"><table class="progress" style="width: 80px;"><tr><td class="closed" style="width: 90%;"></td><td class="todo" style="width: 10%;"></td></tr></table><p class="pourcent">90%</p></td>
+</tr>
+<tr>
+    <th class="category">Category:</th><td class="category">Programming</td>
+    
+</tr>
+<tr>
+    <th class="fixed-version">Target version:</th><td class="fixed-version">-</td>
+    
+</tr>
+
+
+</table>
+<hr />
+
+<div class="contextual">
+
+</div>
+                              
+<p><strong>Description</strong></p>
+<div class="wiki">
+<p>Speaks for itself. If you only have one piece of media for whatever reason, the navigation still shows up. But both of the buttons are disabled, so they may just as well be gone completely.</p>
+
+
+	<p>I have no idea how hard this is to do though.</p>
+
+
+	<p>Attached is a screenshot.</p>
+</div>
+
+<div class="attachments">
+
+<p><a href="/attachments/73/Screenshot-16.png" class="icon icon-attachment">Screenshot-16.png</a>
+  <span class="size">(98.2 )</span>
+  
+  
+    <span class="author">Jef van Schendel, 08/20/2011 05:32 pm</span>
+  
+  </p>
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+
+  <div id="change-1315" class="journal">
+    <h4><div style="float:right;"><a href="/issues/503#note-1">#1</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/c94dad3a25e1e3b95ececafb55643731?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-1"></a>
+		Updated by <a href="/users/542">Jef van Schendel</a> <a href="/projects/mediagoblin/activity?from=2011-08-20" title="08/20/2011 05:33 pm">9 days</a> ago</h4>
+    
+    <ul>
+    
+    </ul>
+    <div class="wiki" id="journal-1315-notes"><p>Typo in the ticket title: "not disappear" should of course be "not appear".</p></div>
+  </div>
+  
+
+  <div id="change-1318" class="journal">
+    <h4><div style="float:right;"><a href="/issues/503#note-2">#2</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/18a4d95c96895ad5b045b27cdbbcfa91?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-2"></a>
+		Updated by <a href="/users/616">Caleb Davis</a> <a href="/projects/mediagoblin/activity?from=2011-08-20" title="08/20/2011 10:37 pm">9 days</a> ago</h4>
+    
+    <ul>
+    
+       <li><strong>Subject</strong> changed from <i>If there are no next and previous media, the navigation buttons should not disappear</i> to <i>If there are no next and previous media, the navigation buttons should not appear</i></li>
+    
+    </ul>
+    
+  </div>
+  
+
+  <div id="change-1320" class="journal">
+    <h4><div style="float:right;"><a href="/issues/503#note-3">#3</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/18a4d95c96895ad5b045b27cdbbcfa91?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-3"></a>
+		Updated by <a href="/users/616">Caleb Davis</a> <a href="/projects/mediagoblin/activity?from=2011-08-21" title="08/21/2011 01:18 am">9 days</a> ago</h4>
+    
+    <ul>
+    
+       <li><strong>Status</strong> changed from <i>New</i> to <i>Feedback</i></li>
+    
+       <li><strong>Assigned to</strong> set to <i>Caleb Davis</i></li>
+    
+       <li><strong>% Done</strong> changed from <i>0</i> to <i>50</i></li>
+    
+    </ul>
+    <div class="wiki" id="journal-1320-notes"><p>Jef, like this?</p>
+
+
+	<p><del><a class="external" href="https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/e3df834a8a22a45ba77940efbd083c7d5a23764e">https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/e3df834a8a22a45ba77940efbd083c7d5a23764e</a></del></p>
+
+
+	<p>EDIT: Chris pointed out you didn't want the Xs to go away completely, just in the case where the user had one media item only. Oops! How about this one?</p>
+
+
+	<p><a class="external" href="https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/0a100476b24d81355342cae5320e1a5a6c83014d">https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/0a100476b24d81355342cae5320e1a5a6c83014d</a></p></div>
+  </div>
+  
+
+  <div id="change-1333" class="journal">
+    <h4><div style="float:right;"><a href="/issues/503#note-4">#4</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/c94dad3a25e1e3b95ececafb55643731?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-4"></a>
+		Updated by <a href="/users/542">Jef van Schendel</a> <a href="/projects/mediagoblin/activity?from=2011-08-22" title="08/22/2011 06:48 am">8 days</a> ago</h4>
+    
+    <ul>
+    
+    </ul>
+    <div class="wiki" id="journal-1333-notes"><p>Yes, that seems like it should work to me.</p>
+
+
+	<p>Thanks Caleb!</p></div>
+  </div>
+  
+
+  <div id="change-1335" class="journal">
+    <h4><div style="float:right;"><a href="/issues/503#note-5">#5</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/18a4d95c96895ad5b045b27cdbbcfa91?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-5"></a>
+		Updated by <a href="/users/616">Caleb Davis</a> <a href="/projects/mediagoblin/activity?from=2011-08-22" title="08/22/2011 09:29 am">8 days</a> ago</h4>
+    
+    <ul>
+    
+       <li><strong>% Done</strong> changed from <i>50</i> to <i>90</i></li>
+    
+    </ul>
+    <div class="wiki" id="journal-1335-notes"><p>Great, please review for merge. This was a bit of additional template logic.</p></div>
+  </div>
+  
+
+
+</div>
+
+
+<div class="contextual">
+
+
+
+<span id="watcher2"></span>
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+
+<p class="other-formats">Also available in:
+	<span><a href="/issues/503.atom" class="atom" rel="nofollow">Atom</a></span>
+	<span><a href="/issues/503.pdf" class="pdf" rel="nofollow">PDF</a></span>
+</p>
+
+
+
+
+
+
+
+        
+				<div style="clear:both;"></div>
+    </div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+	
+<div id="footer">
+    Powered by <a href="http://www.redmine.org/">Redmine</a> &copy; 2006-2010 Jean-Philippe Lang
+</div>
+</div>
+
+</body>
+</html>

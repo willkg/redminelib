@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>GNU MediaGoblin - Feature #476: tag clouds - FooCorp Tracker</title>
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<link href="/themes/alternate/stylesheets/application.css?1267352888" media="all" rel="stylesheet" type="text/css" />
+<script src="/javascripts/prototype.js?1251746896" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/application.js?1267352889" type="text/javascript"></script>
+<link href="/stylesheets/jstoolbar.css?1267352889" media="screen" rel="stylesheet" type="text/css" />
+<!--[if IE]>
+    <style type="text/css">
+      * html body{ width: expression( document.documentElement.clientWidth < 900 ? '900px' : '100%' ); }
+      body {behavior: url(/stylesheets/csshover.htc?1267352889);}
+    </style>
+<![endif]-->
+
+<!-- page specific tags -->
+
+    <link href="http://bugs.foocorp.net/issues/476.atom" rel="alternate" title="GNU MediaGoblin - Feature #476: tag clouds" type="application/atom+xml" />
+    <link href="/stylesheets/scm.css?1267352889" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a href="/login" class="login">Sign in</a></li>
+<li><a href="/account/register" class="register">Register</a></li></ul>    </div>
+    
+    <ul><li><a href="/" class="home">Home</a></li>
+<li><a href="/projects" class="projects">Projects</a></li>
+<li><a href="http://www.redmine.org/guide" class="help">Help</a></li></ul></div>
+      
+<div id="header">
+    <div id="quick-search">
+        <form action="/search/index/mediagoblin" method="get">
+        <input name="issues" type="hidden" value="1" />
+        <a href="/search/index/mediagoblin" accesskey="4">Search</a>:
+        <input accesskey="f" class="small" id="q" name="q" size="20" type="text" />
+        </form>
+        
+    </div>
+    
+    <h1>GNU MediaGoblin</h1>
+    
+    <div id="main-menu">
+        <ul><li><a href="/projects/mediagoblin" class="overview">Overview</a></li>
+<li><a href="/projects/mediagoblin/activity" class="activity">Activity</a></li>
+<li><a href="/projects/mediagoblin/roadmap" class="roadmap">Roadmap</a></li>
+<li><a href="/projects/mediagoblin/issues" class="issues selected">Issues</a></li>
+<li><a href="/projects/mediagoblin/news" class="news">News</a></li>
+<li><a href="/projects/mediagoblin/wiki" class="wiki">Wiki</a></li></ul>
+    </div>
+</div>
+
+<div class="" id="main">
+    <div id="sidebar">        
+        
+    <h3>Issues</h3>
+<a href="/projects/mediagoblin/issues?set_filter=1">View all issues</a><br />
+
+<a href="/projects/mediagoblin/issues/report">Summary</a><br />
+
+
+
+
+
+
+
+<h3>Custom queries</h3>
+
+<a href="/projects/mediagoblin/issues?query_id=2">Graphic design tickets</a><br />
+<a href="/projects/mediagoblin/issues?query_id=1">Open tickets</a><br />
+<a href="/projects/mediagoblin/issues?query_id=3">Simple Issues</a><br />
+
+
+
+        
+    </div>
+    
+    <div id="content">
+				
+        <div class="contextual">
+
+
+
+<span id="watcher"></span>
+
+
+
+
+</div>
+
+
+<h2>Feature #476</h2>
+
+<div class="issue status-1 priority-2 details">
+        <img class="gravatar" alt="" width="50" height="50" src="http://www.gravatar.com/avatar/18a4d95c96895ad5b045b27cdbbcfa91?rating=PG&amp;size=50&amp;default=identicon" />
+        <h3>tag clouds</h3>
+        <p class="author">
+        Added by <a href="/users/616">Caleb Davis</a> <a href="/projects/mediagoblin/activity?from=2011-08-03" title="08/03/2011 12:33 pm">26 days</a> ago.
+        
+        Updated <a href="/projects/mediagoblin/activity?from=2011-08-03" title="08/03/2011 12:37 pm">26 days</a> ago.
+        
+        </p>
+
+<table class="attributes">
+<tr>
+    <th class="status">Status:</th><td class="status">New</td>
+    <th class="start-date">Start:</th><td class="start-date">08/03/2011</td>
+</tr>
+<tr>
+    <th class="priority">Priority:</th><td class="priority">Normal</td>
+    <th class="due-date">Due date:</th><td class="due-date"></td>
+</tr>
+<tr>
+    <th class="assigned-to">Assigned to:</th><td class="assigned-to">-</td>
+    <th class="progress">% Done:</th><td class="progress"><table class="progress" style="width: 80px;"><tr><td class="todo" style="width: 100%;"></td></tr></table><p class="pourcent">0%</p></td>
+</tr>
+<tr>
+    <th class="category">Category:</th><td class="category">Programming</td>
+    
+</tr>
+<tr>
+    <th class="fixed-version">Target version:</th><td class="fixed-version"><a href="/versions/show/5">0.0.5</a></td>
+    
+</tr>
+
+
+</table>
+<hr />
+
+<div class="contextual">
+
+</div>
+                              
+<p><strong>Description</strong></p>
+<div class="wiki">
+<p>This is another rollover from <a href="/issues/360" class="issue status-5 priority-2 closed" title="tagging (Closed)">#360</a>, but it got left behind somehow. A tag cloud is a dict-like object containing {'tag-name':frequency-of-use,...}. It's fun to have them to see all the tags that people are using publicly on an instance.</p>
+
+
+Where would we display these?
+	<ul>
+	<li>instance home page - all users, processed media</li>
+		<li>user's profile - user's processed media</li>
+		<li>[BONUS] - arbitrary collection (/tags/bunnies)</li>
+	</ul>
+
+
+Open questions:
+	<ul>
+	<li>Should we use MapReduce? <a class="external" href="http://cookbook.mongodb.org/patterns/count_tags/">http://cookbook.mongodb.org/patterns/count_tags/</a> The alternative would be to write tags to a text file and do <pre>sort tags_text_file | uniq -c</pre> or do it completely within python</li>
+		<li>Should we use celery? Generating tag clouds shouldn't slow page renders. Thoughts:</li>
+	</ul>
+
+
+<blockquote>
+
+	<p>do it with python if you're using MapReduce since, if MapReduce gets too slow, you just add more processors!</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>if it 'takes too long', then use celery</p>
+
+
+</blockquote>
+
+	<ul>
+	<li>How often do we update the clouds? Thoughts included:</li>
+	</ul>
+
+
+<blockquote>
+
+	<p>not during a bulk upload</p>
+
+
+</blockquote>
+
+	<ul>
+	<li>How do we store these tag cloud objects? If we're not rendering them on the fly, then they should be in some kind of cache. Thoughts:</li>
+	</ul>
+
+
+<blockquote>
+
+	<p>user['tag_cloud'] = dict</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>associate the cloud with the route. something like - {'/':'instance_cloud.txt','/u/user1':'user1_cloud.txt','/tags/bunnies':'tags_bunnies.txt'}</p>
+
+
+</blockquote>
+</div>
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+
+</div>
+
+<p><strong>Related issues</strong></p>
+
+
+<table style="width:100%">
+
+<tr>
+<td>related to 
+    
+    <a href="/issues/507" class="issue status-1 priority-2">Feature #507</a>: Use beaker as a caching abstraction layer
+</td>
+<td>New</td>
+<td>08/22/2011</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>related to 
+    
+    <a href="/issues/502" class="issue status-1 priority-2">Feature #502</a>: Add tag list to user profile
+</td>
+<td>New</td>
+<td>08/20/2011</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>blocked by 
+    
+    <a href="/issues/456" class="issue status-1 priority-2">Feature #456</a>: Consider cache &quot;table&quot;
+</td>
+<td>New</td>
+<td>07/26/2011</td>
+<td></td>
+<td></td>
+</tr>
+
+</table>
+
+
+<form action="/issues/476/relations/476" id="new-relation-form" method="post" onsubmit="new Ajax.Request('/issues/476/relations/476', {asynchronous:true, evalScripts:true, method:'post', parameters:Form.serialize(this)}); return false;" style="display: none;"><div style="margin:0;padding:0"><input name="authenticity_token" type="hidden" value="07039270581efa840e6d9acc64bccc555a7be21d" /></div>
+
+
+<p><select id="relation_relation_type" name="relation[relation_type]" onchange="setPredecessorFieldsVisibility();"><option value="relates">related to</option>
+<option value="duplicates">duplicates</option>
+<option value="blocks">blocks</option>
+<option value="precedes">precedes</option>
+<option value="follows">follows</option></select>
+Issue #<input id="relation_issue_to_id" name="relation[issue_to_id]" size="6" type="text" />
+<span id="predecessor_fields" style="display:none;">
+Delay: <input id="relation_delay" name="relation[delay]" size="3" type="text" /> days
+</span>
+<input name="commit" type="submit" value="Add" />
+<a href="#" onclick="Element.toggle('new-relation-form'); this.blur(); return false;">Cancel</a>
+</p>
+
+<script type="text/javascript">
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+
+  <div id="change-1198" class="journal">
+    <h4><div style="float:right;"><a href="/issues/476#note-1">#1</a></div>
+    <img class="gravatar" alt="" width="24" height="24" src="http://www.gravatar.com/avatar/18a4d95c96895ad5b045b27cdbbcfa91?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-1"></a>
+		Updated by <a href="/users/616">Caleb Davis</a> <a href="/projects/mediagoblin/activity?from=2011-08-03" title="08/03/2011 12:37 pm">26 days</a> ago</h4>
+    
+    <ul>
+    
+    </ul>
+    <div class="wiki" id="journal-1198-notes"><p>I haven't gone through the code in this one yet, but the feature set is interesting: <a class="external" href="http://pypi.python.org/pypi/cs.tags">http://pypi.python.org/pypi/cs.tags</a></p></div>
+  </div>
+  
+
+
+</div>
+
+
+<div class="contextual">
+
+
+
+<span id="watcher2"></span>
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+
+
+<p class="other-formats">Also available in:
+	<span><a href="/issues/476.atom" class="atom" rel="nofollow">Atom</a></span>
+	<span><a href="/issues/476.pdf" class="pdf" rel="nofollow">PDF</a></span>
+</p>
+
+
+
+
+
+
+
+        
+				<div style="clear:both;"></div>
+    </div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+	
+<div id="footer">
+    Powered by <a href="http://www.redmine.org/">Redmine</a> &copy; 2006-2010 Jean-Philippe Lang
+</div>
+</div>
+
+</body>
+</html>
