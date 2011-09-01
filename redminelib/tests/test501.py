@@ -15,7 +15,7 @@ import os
 from nose.tools import eq_
 
 def test_501():
-    rs = RedmineScraper()
+    rs = RedmineScraper("")
     data = open(os.path.join(utils.get_testdata(), "501.html")).read()
     issue = rs.parse_issue(data)
 

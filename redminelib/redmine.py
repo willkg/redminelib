@@ -28,6 +28,26 @@ class RedmineScraper:
     for a project in Redmine.
     """
 
+    def __init__(self, base_url):
+        self.base_url = base_url
+
+
+    def extract_attachment(self, doc):
+        """Takes an attachments p and parses out the attachment
+        information.
+        """
+        att = {}
+        ahref = doc.cssselect("a")[0]
+        att["url"] = urljoin(self.base_url, ahref.attrib["href"])
+        att["name"] = ahref.text
+
+        author = doc.cssselect("span.author")[0].text
+        att["author"] = author[:author.rfind(",")].strip()
+        att["date"] = author[author.rfind(",")+1:].strip()
+
+        return att
+
+
     def extract_change(self, doc):
         """Takes a journal div and extracts the change information from
         it.
@@ -114,11 +134,21 @@ class RedmineScraper:
         # FIXME - should convert this to something useful somehow
         issue["description"] = textify(desc)
 
-        history = root.cssselect("div#history")[0]
+        attachments = root.cssselect("div.attachments")
+        if len(attachments) > 0:
+            issue["attachments"] = [
+                self.extract_attachment(att)
+                for att in attachments[0].cssselect("p")]
+        else:
+            issue["attachments"] = []
 
-        issue["history"] = [
-            self.extract_change(change)
-            for change in history.cssselect("div.journal")]
+        history = root.cssselect("div#history")
+        if len(history) > 0:
+            issue["history"] = [
+                self.extract_change(change)
+                for change in history[0].cssselect("div.journal")]
+        else:
+            issue["history"] = []
 
         print issue
 

@@ -19,7 +19,7 @@ from nose.tools import eq_
 
 
 def test_476():
-    rs = RedmineScraper()
+    rs = RedmineScraper("")
     data = open(os.path.join(utils.get_testdata(), "476.html")).read()
     issue = rs.parse_issue(data)
 
@@ -45,7 +45,6 @@ def test_476():
     # FIXME - add tests for blockers and related bugs
 
     # history
-    # there's one change
     eq_(len(issue["history"]), 1)
     hist1 = issue["history"][0]
     eq_(hist1["date"], "08/03/2011 12:37 pm")

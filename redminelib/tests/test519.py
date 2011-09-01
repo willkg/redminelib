@@ -16,7 +16,7 @@ from nose.tools import eq_
 
 
 def test_519():
-    rs = RedmineScraper()
+    rs = RedmineScraper("")
     data = open(os.path.join(utils.get_testdata(), "519.html")).read()
     issue = rs.parse_issue(data)
 
@@ -40,7 +40,6 @@ def test_519():
     eq_(issue["fixed-version"], "0.0.5")
 
     # history
-    # there are two changes
     eq_(len(issue["history"]), 2)
     hist1 = issue["history"][0]
     eq_(hist1["date"], "08/24/2011 07:14 pm")

@@ -20,7 +20,7 @@ from nose.tools import eq_
 
 
 def test_503():
-    rs = RedmineScraper()
+    rs = RedmineScraper("http://bugs.foocorp.net/")
     data = open(os.path.join(utils.get_testdata(), "503.html")).read()
     issue = rs.parse_issue(data)
 
@@ -43,7 +43,14 @@ def test_503():
     eq_(issue["category"], "Programming")
     eq_(issue["fixed-version"], "-")
 
-    # FIXME test attachments
+    # attachments
+    eq_(len(issue["attachments"]), 1)
+    att1 = issue["attachments"][0]
+
+    eq_(att1["author"], "Jef van Schendel")
+    eq_(att1["date"], "08/20/2011 05:32 pm")
+    eq_(att1["url"], "http://bugs.foocorp.net/attachments/73/Screenshot-16.png")
+    eq_(att1["name"], "Screenshot-16.png")
 
     # history
     eq_(len(issue["history"]), 5)
