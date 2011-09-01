@@ -44,16 +44,29 @@ class RedmineScraper:
         # extracts individual change items for this change
         change_items = []
         for item in doc.cssselect("ul li"):
-            change_items.append({
-                    "property": item.cssselect("strong")[0].text,
-                    "oldvalue": item.cssselect("i")[0].text,
-                    "newvalue": item.cssselect("i")[1].text
-                    })
+            prop_name = item.cssselect("strong")[0]
+            values = item.cssselect("i")
+            if len(values) == 1:
+                change_items.append({
+                        "property": prop_name.text,
+                        "oldvalue": "",
+                        "newvalue": values[0].text
+                        })
+            else:
+                change_items.append({
+                        "property": prop_name.text,
+                        "oldvalue": values[0].text,
+                        "newvalue": values[1].text
+                        })
 
         change["properties"] = change_items
 
         # FIXME - clean this up
-        change["comment"] = textify(doc.cssselect("div.wiki")[0])
+        comment = doc.cssselect("div.wiki")
+        if len(comment) > 0:
+            change["comment"] = textify(doc.cssselect("div.wiki")[0])
+        else:
+            change["comment"] = ""
 
         return change
 
