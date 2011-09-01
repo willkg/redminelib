@@ -41,5 +41,6 @@ setup(
     install_requires=[
         "html2text",
         "nose",
+        "lxml",
         ]
     )
