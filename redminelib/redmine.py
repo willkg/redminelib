@@ -19,6 +19,13 @@ import lxml.html
 from html2text import html2text
 
 def textify(doc):
+    """Takes a doc Element and returns it stringified, stripped, and
+    then converted to Markdown.
+
+    :param doc: doc Element
+
+    :returns: the data formated in Markdown as a string
+    """
     return html2text(lxml.html.tostring(doc).strip())
 
 
@@ -28,13 +35,21 @@ class RedmineScraper:
     for a project in Redmine.
     """
 
-    def __init__(self, base_url):
+    def __init__(self, base_url=""):
+        """
+        :param base_url: base url to use for issue urls.  Defaults to
+            the empty string.
+        """
         self.base_url = base_url
 
 
     def extract_attachment(self, doc):
         """Takes an attachments p and parses out the attachment
         information.
+
+        :param doc: doc Element holding a single attachment
+
+        :returns: dict representing the attachment
         """
         att = {}
         ahref = doc.cssselect("a")[0]
@@ -48,52 +63,59 @@ class RedmineScraper:
         return att
 
 
-    def extract_change(self, doc):
-        """Takes a journal div and extracts the change information from
-        it.
+    def extract_history_item(self, doc):
+        """Takes a journal div and extracts the history item
+        information from it.
 
-        Returns a dict.
+        :param doc: doc Element holding a single history item
+
+        :returns: dict representing the history item
         """
-        change = {}
+        history_item = {}
 
-        # FIXME - this is fragile
+        # this is fragile.  the first <a ..> is the author.  the
+        # second has a title that's the date we want.
         hrefs = doc.cssselect("a")
-        change["author"] = hrefs[2].text
-        change["date"] = hrefs[3].attrib["title"]
+        history_item["author"] = hrefs[2].text
+        history_item["date"] = hrefs[3].attrib["title"]
 
-        # extracts individual change items for this change
-        change_items = []
-        for item in doc.cssselect("ul li"):
-            prop_name = item.cssselect("strong")[0]
-            values = item.cssselect("i")
+        # extracts individual change_property items for this history
+        # item.  the user can change multiple properties all at once.
+        change_properties = []
+        for change in doc.cssselect("ul li"):
+            prop_name = change.cssselect("strong")[0]
+            values = change.cssselect("i")
             if len(values) == 1:
-                change_items.append({
+                change_properties.append({
                         "property": prop_name.text,
                         "oldvalue": "",
                         "newvalue": values[0].text
                         })
             else:
-                change_items.append({
+                change_properties.append({
                         "property": prop_name.text,
                         "oldvalue": values[0].text,
                         "newvalue": values[1].text
                         })
 
-        change["properties"] = change_items
+        history_item["properties"] = change_properties
 
-        # FIXME - clean this up
         comment = doc.cssselect("div.wiki")
         if len(comment) > 0:
-            change["comment"] = textify(doc.cssselect("div.wiki")[0])
+            history_item["comment"] = textify(doc.cssselect("div.wiki")[0])
         else:
-            change["comment"] = ""
+            history_item["comment"] = ""
 
-        return change
+        return history_item
 
 
     def parse_issue(self, data):
         """Takes in a string of an issue page in html, parses it, and
         returns a dict containing all the useful stuff.
+
+        :param data: html document as a string
+
+        :returns: dict representing the issue
         """
         issue = {}
 
@@ -145,8 +167,8 @@ class RedmineScraper:
         history = root.cssselect("div#history")
         if len(history) > 0:
             issue["history"] = [
-                self.extract_change(change)
-                for change in history[0].cssselect("div.journal")]
+                self.extract_history_item(hist_item)
+                for hist_item in history[0].cssselect("div.journal")]
         else:
             issue["history"] = []
 
