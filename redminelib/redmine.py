@@ -8,9 +8,7 @@
 #######################################################################
 
 
-import sys
 import httplib
-import urllib
 import csv
 from urlparse import urlparse, urljoin
 from StringIO import StringIO
@@ -43,7 +41,105 @@ class RedmineScraper:
         self.base_url = base_url
 
 
-    def extract_attachment(self, doc):
+    def http_get(self, host, path, port=80, querystring=""):
+        """Takes a host, path, port, and querystring and returns
+        the HTTP response.
+
+        :param host: host string.  ex. bugs.foocorp.net
+        :param path: path of the request.  ex. /projects/mediagoblin/issues
+        :param port: the port.  defaults to 80.
+        :param querystring: the querystring (don't include the ?).
+            defaults to the empty string
+
+        :returns: http response object
+
+        :raises ValueError: on a non-200 response
+        """
+        conn = httplib.HTTPConnection(host, port)
+        if querystring:
+            conn.request("GET", "?".join(path, querystring))
+        else:
+            conn.request("GET", path)
+        resp = conn.getresponse()
+
+        if resp.status != 200:
+            # FIXME - this is bad--should do something more
+            # intelligent
+            raise ValueError("Bad url?: Error: status: %s reason: %s",
+                             resp.status, resp.reason)
+
+        return resp
+
+
+    def extract_bugid(self, root):
+        bug_id = root.cssselect("h2")[0].text
+
+        # this peels off the "Bug #" part.
+        return bug_id.split("#")[1]
+
+
+    def extract_title(self, root):
+        details = root.cssselect("div.details")[0]
+        title = details.cssselect("h3")[0]
+        return title.text
+
+
+    def extract_author(self, root):
+        details = root.cssselect("div.details")[0]
+        author_and_date = details.cssselect("p.author a")
+        return author_and_date[0].text
+
+
+    def extract_creation_date(self, root):
+        details = root.cssselect("div.details")[0]
+        author_and_date = details.cssselect("p.author a")
+        return author_and_date[1].attrib["title"]
+
+
+    def extract_last_updated_date(self, root):
+        details = root.cssselect("div.details")[0]
+        author_and_date = details.cssselect("p.author a")
+        return author_and_date[2].attrib["title"]
+
+
+    def extract_description(self, root):
+        details = root.cssselect("div.details")[0]
+        desc = details.cssselect("div.wiki")[0]
+        # FIXME - should convert this to something useful somehow
+        return textify(desc)
+
+
+    def extract_attributes(self, root):
+        details = root.cssselect("div.details")[0]
+        attributes = {}
+
+        # the attributes table in redmine has td elements that have
+        # semantic class names.  for example, one td has a class name
+        # of "status".
+        #
+        # i abuse that fact to just grab all the data in key/value pairs.
+        attributes_table = details.cssselect("table.attributes")[0]
+        for elem in attributes_table.cssselect("td"):
+            key = elem.attrib["class"]
+            if elem.text:
+                attributes[key] = elem.text
+            else:
+                attributes[key] = "".join(elem.itertext())
+
+        return attributes
+
+
+    def extract_attachments(self, root):
+        attachments = root.cssselect("div.attachments")
+        if len(attachments) > 0:
+            return  [
+                self.extract_attachment(att)
+                for att in attachments[0].cssselect("p")]
+        else:
+            return []
+
+
+    def extract_attachment(self, elem_p):
         """Takes an attachments p and parses out the attachment
         information.
 
@@ -52,18 +148,28 @@ class RedmineScraper:
         :returns: dict representing the attachment
         """
         att = {}
-        ahref = doc.cssselect("a")[0]
+        ahref = elem_p.cssselect("a")[0]
         att["url"] = urljoin(self.base_url, ahref.attrib["href"])
         att["name"] = ahref.text
 
-        author = doc.cssselect("span.author")[0].text
+        author = elem_p.cssselect("span.author")[0].text
         att["author"] = author[:author.rfind(",")].strip()
         att["date"] = author[author.rfind(",")+1:].strip()
 
         return att
 
 
-    def extract_history_item(self, doc):
+    def extract_history(self, root):
+        history = root.cssselect("div#history")
+        if len(history) > 0:
+            return [
+                self.extract_history_item(hist_item)
+                for hist_item in history[0].cssselect("div.journal")]
+        else:
+            return []
+
+
+    def extract_history_item(self, elem_div):
         """Takes a journal div and extracts the history item
         information from it.
 
@@ -75,14 +181,14 @@ class RedmineScraper:
 
         # this is fragile.  the first <a ..> is the author.  the
         # second has a title that's the date we want.
-        hrefs = doc.cssselect("a")
+        hrefs = elem_div.cssselect("a")
         history_item["author"] = hrefs[2].text
         history_item["date"] = hrefs[3].attrib["title"]
 
         # extracts individual change_property items for this history
         # item.  the user can change multiple properties all at once.
         change_properties = []
-        for change in doc.cssselect("ul li"):
+        for change in elem_div.cssselect("ul li"):
             prop_name = change.cssselect("strong")[0]
             values = change.cssselect("i")
             if len(values) == 1:
@@ -100,9 +206,9 @@ class RedmineScraper:
 
         history_item["properties"] = change_properties
 
-        comment = doc.cssselect("div.wiki")
+        comment = elem_div.cssselect("div.wiki")
         if len(comment) > 0:
-            history_item["comment"] = textify(doc.cssselect("div.wiki")[0])
+            history_item["comment"] = textify(comment[0])
         else:
             history_item["comment"] = ""
 
@@ -122,57 +228,15 @@ class RedmineScraper:
         tree = lxml.html.parse(StringIO(data))
         root = tree.getroot()
 
-        bug_id = root.cssselect("h2")[0].text
-        issue["id"] = bug_id.split("#")[1]
-
-        details = root.cssselect("div.details")[0]
-
-        if details is None:
-            raise ValueError("No details section in this bug?")
-
-        title = details.cssselect("h3")[0]
-        issue["title"] = title.text
-
-        author_and_date = details.cssselect("p.author a")
-        issue["author"] = author_and_date[0].text
-        issue["creation-date"] = author_and_date[1].attrib["title"]
-        issue["last-updated-date"] = author_and_date[2].attrib["title"]
-
-        # the attributes table in redmine has td elements that have
-        # semantic class names.  for example, one td has a class name
-        # of "status".
-        #
-        # i abuse that fact to just grab all the data in key/value pairs.
-        attributes = details.cssselect("table.attributes")[0]
-        tds = attributes.cssselect("td")
-        for mem in tds:
-            key = mem.attrib["class"]
-            if mem.text:
-                issue[key] = mem.text
-            else:
-                issue[key] = "".join(mem.itertext())
-
-        desc = details.cssselect("div.wiki")[0]
-        # FIXME - should convert this to something useful somehow
-        issue["description"] = textify(desc)
-
-        attachments = root.cssselect("div.attachments")
-        if len(attachments) > 0:
-            issue["attachments"] = [
-                self.extract_attachment(att)
-                for att in attachments[0].cssselect("p")]
-        else:
-            issue["attachments"] = []
-
-        history = root.cssselect("div#history")
-        if len(history) > 0:
-            issue["history"] = [
-                self.extract_history_item(hist_item)
-                for hist_item in history[0].cssselect("div.journal")]
-        else:
-            issue["history"] = []
-
-        print issue
+        issue["id"] = self.extract_bugid(root)
+        issue["title"] = self.extract_title(root)
+        issue["author"] = self.extract_author(root)
+        issue["creation-date"] = self.extract_creation_date(root)
+        issue["last-updated-date"] = self.extract_last_updated_date(root)
+        issue.update(self.extract_attributes(root))
+        issue["description"] = self.extract_description(root)
+        issue["attachments"] = self.extract_attachments(root)
+        issue["history"] = self.extract_history(root)
 
         return issue
 
