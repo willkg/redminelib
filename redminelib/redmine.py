@@ -129,6 +129,27 @@ class RedmineScraper:
         return attributes
 
 
+    def extract_relation(self, elem_tr):
+        relation = {}
+
+        td = elem_tr.cssselect("td")[0]
+        issue_id = td.cssselect("a")[0]
+        relation["id"] = issue_id.text.split("#")[1]
+        relation["relation"] = td.text.split(" ")[0]
+
+        return relation
+
+
+    def extract_relations(self, root):
+        relations = root.cssselect("div#relations")
+        if len(relations) > 0:
+            return  [
+                self.extract_relation(rel)
+                for rel in relations[0].cssselect("tr")]
+        else:
+            return []
+
+
     def extract_attachments(self, root):
         attachments = root.cssselect("div.attachments")
         if len(attachments) > 0:
@@ -235,6 +256,7 @@ class RedmineScraper:
         issue["last-updated-date"] = self.extract_last_updated_date(root)
         issue.update(self.extract_attributes(root))
         issue["description"] = self.extract_description(root)
+        issue["relations"] = self.extract_relations(root)
         issue["attachments"] = self.extract_attachments(root)
         issue["history"] = self.extract_history(root)
 

@@ -42,7 +42,19 @@ def test_476():
     eq_(issue["category"], "Programming")
     eq_(issue["fixed-version"], "0.0.5")
 
-    # FIXME - add tests for blockers and related bugs
+    # relations
+    eq_(len(issue["relations"]), 3)
+    rel1 = issue["relations"][0]
+    eq_(rel1["id"], "507")
+    eq_(rel1["relation"], "related")
+
+    rel2 = issue["relations"][1]
+    eq_(rel2["id"], "502")
+    eq_(rel2["relation"], "related")
+
+    rel3 = issue["relations"][2]
+    eq_(rel3["id"], "456")
+    eq_(rel3["relation"], "blocked")
 
     # history
     eq_(len(issue["history"]), 1)
