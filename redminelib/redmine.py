@@ -150,6 +150,29 @@ class RedmineScraper:
             return []
 
 
+    def extract_watcher(self, elem_span):
+        return elem_span.cssselect("a")[0].text
+
+
+    def extract_watchers(self, root):
+        """
+        .. Note::
+
+           Watchers only show up on the page if you're logged in.
+
+        :param root: the document
+
+        :returns: list of watchers (each a string)
+        """
+        watchers = root.cssselect("div#watchers")
+        if len(watchers) > 0:
+            return [
+                self.extract_watcher(wat)
+                for wat in watchers[0].cssselect("span.user")]
+        else:
+            return []
+
+
     def extract_attachments(self, root):
         attachments = root.cssselect("div.attachments")
         if len(attachments) > 0:
@@ -229,6 +252,13 @@ class RedmineScraper:
 
         comment = elem_div.cssselect("div.wiki")
         if len(comment) > 0:
+            # if you're logged in, you get this additional contextual
+            # bit that has ajaxy stuff for commenting, editing, etc.
+            # so we remove it if it's there so we're only getting the
+            # comment.
+            contextual = comment[0].cssselect("div.contextual")
+            if len(contextual) > 0:
+                contextual[0].clear()
             history_item["comment"] = textify(comment[0])
         else:
             history_item["comment"] = ""
@@ -257,6 +287,7 @@ class RedmineScraper:
         issue.update(self.extract_attributes(root))
         issue["description"] = self.extract_description(root)
         issue["relations"] = self.extract_relations(root)
+        issue["watchers"] = self.extract_watchers(root)
         issue["attachments"] = self.extract_attachments(root)
         issue["history"] = self.extract_history(root)
 
