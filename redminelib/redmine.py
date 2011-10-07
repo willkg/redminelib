@@ -8,13 +8,105 @@
 #######################################################################
 
 
-import httplib
 import csv
+import urllib2
+import cookielib
 from urlparse import urlparse, urljoin
 from StringIO import StringIO
+import time
 import lxml.etree
 import lxml.html
 from html2text import html2text
+
+
+def wrap_text(text):
+    text = '    ' + '\n    '.join(text.split("\n"))
+    return text
+
+
+def issue_to_string(data):
+    output = []
+    output.append("Header")
+    output.append("======")
+    output.append("")
+
+    output.append("Id: %s" % data["id"])
+    output.append("Title: %s" % data["title"])
+    output.append("Author: %s" % data["author"])
+    output.append("Status: %s" % data["status"])
+    output.append("Category: %s" % data["category"])
+    output.append("Priority: %s" % data["priority"])
+    output.append("Milestone: %s" % data["fixed-version"])
+    output.append("Creation date: %s" % data["creation-date"])
+    output.append("Start date: %s" % data["start-date"])
+    output.append("Due date: %s" % data["due-date"])
+    output.append("Assigned to: %s" % data["assigned-to"])
+    output.append("Progress: %s" % data["progress"])
+    output.append("Todo: %s" % data["todo"])
+    output.append("Last updated: %s" % data["last-updated-date"])
+    output.append("")
+
+    output.append("Description")
+    output.append("===========")
+    output.append("")
+    output.append(data["description"])
+    output.append("")
+
+    output.append("Attachments")
+    output.append("===========")
+    output.append("")
+    if data["attachments"]:
+        for mem in data["attachments"]:
+            output.append("%s %s %s: %s" % (
+                    mem["date"], mem["author"], mem["name"], mem["url"]))
+        output.append("")
+
+    output.append("Relations")
+    output.append("=========")
+    output.append("")
+    if data["relations"]:
+        for mem in data["relations"]:
+            output.append("%s: %s" % (mem["relation"], mem["id"]))
+        output.append("")
+
+    output.append("Watchers")
+    output.append("========")
+    output.append("")
+    if data["watchers"]:
+        for mem in data["watchers"]:
+            output.append("%r" % mem)
+        output.append("")
+
+    output.append("History")
+    output.append("=======")
+    output.append("")
+    for mem in data["history"]:
+        output.append("%s %s:" % (mem["date"], mem["author"]))
+        output.append("")
+        if mem["properties"]:
+            for prop in mem["properties"]:
+                output.append("    %s: %s -> %s" % (
+                        prop["property"], prop["oldvalue"], prop["newvalue"]))
+                output.append("")
+        output.append(mem["comment"])
+
+    return "\n".join(output)
+
+
+def string_to_date(datestring):
+    """Takes a date string, runs time.strptime on it, and returns the
+    result.
+
+    .. Note::
+
+       This doesn't do time zone translations.
+
+    :param datestring: the string to convert.  e.g. "07/09/2011 04:54 pm"
+
+    :returns: struct_time
+    """
+    return time.strptime(datestring, "%m/%d/%Y %I:%M %p")
+
 
 def textify(doc):
     """Takes a doc Element and returns it stringified, stripped, and
@@ -33,43 +125,37 @@ class RedmineScraper:
     for a project in Redmine.
     """
 
-    def __init__(self, base_url=""):
+    def __init__(self, base_url="", session_token=""):
         """
         :param base_url: base url to use for issue urls.  Defaults to
             the empty string.
         """
         self.base_url = base_url
+        self.cookies = cookielib.CookieJar()
+        self._opener = urllib2.build_opener(
+            urllib2.HTTPCookieProcessor(self.cookies),
+            urllib2.HTTPRedirectHandler())
 
+        if session_token:
+            self._opener.addheaders = [
+                ("Cookie", "_redmine_default=" + session_token)
+                ]
 
-    def http_get(self, host, path, port=80, querystring=""):
-        """Takes a host, path, port, and querystring and returns
-        the HTTP response.
+    def http_get(self, url):
+        """Takes a url and returns the HTTP response.
 
-        :param host: host string.  ex. bugs.foocorp.net
-        :param path: path of the request.  ex. /projects/mediagoblin/issues
-        :param port: the port.  defaults to 80.
-        :param querystring: the querystring (don't include the ?).
-            defaults to the empty string
+        :param url: the url to get
 
         :returns: http response object
 
-        :raises ValueError: on a non-200 response
+        :raises urllib2.HTTPError: on a non-200 response
+        :raises urllib2.URLError: for connection issues
         """
-        conn = httplib.HTTPConnection(host, port)
-        if querystring:
-            conn.request("GET", "?".join(path, querystring))
-        else:
-            conn.request("GET", path)
-        resp = conn.getresponse()
+        request = urllib2.Request(url)
 
-        if resp.status != 200:
-            # FIXME - this is bad--should do something more
-            # intelligent
-            raise ValueError("Bad url?: Error: status: %s reason: %s",
-                             resp.status, resp.reason)
+        resp = self._opener.open(request)
 
         return resp
-
 
     def extract_bugid(self, root):
         bug_id = root.cssselect("h2")[0].text
@@ -77,37 +163,35 @@ class RedmineScraper:
         # this peels off the "Bug #" part.
         return bug_id.split("#")[1]
 
-
     def extract_title(self, root):
         details = root.cssselect("div.details")[0]
         title = details.cssselect("h3")[0]
         return title.text
-
 
     def extract_author(self, root):
         details = root.cssselect("div.details")[0]
         author_and_date = details.cssselect("p.author a")
         return author_and_date[0].text
 
-
     def extract_creation_date(self, root):
         details = root.cssselect("div.details")[0]
         author_and_date = details.cssselect("p.author a")
         return author_and_date[1].attrib["title"]
 
-
     def extract_last_updated_date(self, root):
         details = root.cssselect("div.details")[0]
         author_and_date = details.cssselect("p.author a")
+        # if this bug was created, but never updated after that,
+        # there's no last-updated-date, so we use the creation-date.
+        if len(author_and_date) < 3:
+            return author_and_date[1].attrib["title"]
         return author_and_date[2].attrib["title"]
-
 
     def extract_description(self, root):
         details = root.cssselect("div.details")[0]
         desc = details.cssselect("div.wiki")[0]
         # FIXME - should convert this to something useful somehow
         return textify(desc)
-
 
     def extract_attributes(self, root):
         details = root.cssselect("div.details")[0]
@@ -128,7 +212,6 @@ class RedmineScraper:
 
         return attributes
 
-
     def extract_relation(self, elem_tr):
         relation = {}
 
@@ -139,7 +222,6 @@ class RedmineScraper:
 
         return relation
 
-
     def extract_relations(self, root):
         relations = root.cssselect("div#relations")
         if len(relations) > 0:
@@ -149,10 +231,8 @@ class RedmineScraper:
         else:
             return []
 
-
     def extract_watcher(self, elem_span):
         return elem_span.cssselect("a")[0].text
-
 
     def extract_watchers(self, root):
         """
@@ -172,7 +252,6 @@ class RedmineScraper:
         else:
             return []
 
-
     def extract_attachments(self, root):
         attachments = root.cssselect("div.attachments")
         if len(attachments) > 0:
@@ -181,7 +260,6 @@ class RedmineScraper:
                 for att in attachments[0].cssselect("p")]
         else:
             return []
-
 
     def extract_attachment(self, elem_p):
         """Takes an attachments p and parses out the attachment
@@ -198,10 +276,9 @@ class RedmineScraper:
 
         author = elem_p.cssselect("span.author")[0].text
         att["author"] = author[:author.rfind(",")].strip()
-        att["date"] = author[author.rfind(",")+1:].strip()
+        att["date"] = author[author.rfind(",") + 1:].strip()
 
         return att
-
 
     def extract_history(self, root):
         history = root.cssselect("div#history")
@@ -211,7 +288,6 @@ class RedmineScraper:
                 for hist_item in history[0].cssselect("div.journal")]
         else:
             return []
-
 
     def extract_history_item(self, elem_div):
         """Takes a journal div and extracts the history item
@@ -232,21 +308,33 @@ class RedmineScraper:
         # extracts individual change_property items for this history
         # item.  the user can change multiple properties all at once.
         change_properties = []
-        for change in elem_div.cssselect("ul li"):
+        changelist = elem_div.cssselect("ul")[0]
+        for change in changelist.cssselect("li"):
             prop_name = change.cssselect("strong")[0]
-            values = change.cssselect("i")
-            if len(values) == 1:
+            if prop_name.text == "File":
+                # a file was added.  so we stick the filename in
+                # the newvalue field.
+                filename = change.cssselect("a")[0].text
                 change_properties.append({
                         "property": prop_name.text,
                         "oldvalue": "",
-                        "newvalue": values[0].text
+                        "newvalue": filename
                         })
             else:
-                change_properties.append({
-                        "property": prop_name.text,
-                        "oldvalue": values[0].text,
-                        "newvalue": values[1].text
-                        })
+                values = change.cssselect("i")
+
+                if len(values) == 1:
+                    change_properties.append({
+                            "property": prop_name.text,
+                            "oldvalue": "",
+                            "newvalue": values[0].text
+                            })
+                else:
+                    change_properties.append({
+                            "property": prop_name.text,
+                            "oldvalue": values[0].text,
+                            "newvalue": values[1].text
+                            })
 
         history_item["properties"] = change_properties
 
@@ -264,7 +352,6 @@ class RedmineScraper:
             history_item["comment"] = ""
 
         return history_item
-
 
     def parse_issue(self, data):
         """Takes in a string of an issue page in html, parses it, and
@@ -293,21 +380,9 @@ class RedmineScraper:
 
         return issue
 
-
     def get_issue(self, url):
-        parsedurl = urlparse(url)
-        path = parsedurl.path
-
-        conn = httplib.HTTPConnection(parsedurl.hostname, parsedurl.port)
-        conn.request("GET", path)
-        resp = conn.getresponse()
-
-        if resp.status != 200:
-            raise ValueError("Bad url?: Error: status: %s reason: %s",
-                             resp.status, resp.reason)
-
+        resp = self.http_get(url)
         return self.parse_issue(resp.read())
-
 
     def parse_issues(self, data):
         """Takes in a string of the list of issues as a csv file and
@@ -323,7 +398,6 @@ class RedmineScraper:
         """
         reader = csv.DictReader(StringIO(data), delimiter=",", quotechar='"')
         return [row for row in reader]
-
 
     def get_open_issues(self, url):
         """Fetches the issues.csv file, parses it, and returns the

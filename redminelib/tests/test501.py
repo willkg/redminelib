@@ -8,15 +8,16 @@
 #######################################################################
 
 from redminelib.redmine import RedmineScraper
-from redminelib.tests import utils
+from redminelib.tests import get_testdata
 
 import os
 
 from nose.tools import eq_
 
+
 def test_501():
     rs = RedmineScraper("")
-    data = open(os.path.join(utils.get_testdata(), "501.html")).read()
+    data = open(os.path.join(get_testdata(), "501.html")).read()
     issue = rs.parse_issue(data)
 
     # extracted

@@ -7,4 +7,8 @@
 # COPYING for distribution details.
 #######################################################################
 
-pass
+import os
+
+
+def get_testdata():
+    return os.path.join(os.path.dirname(__file__), "testdata")

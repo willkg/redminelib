@@ -12,7 +12,7 @@
 
 
 from redminelib.redmine import RedmineScraper
-from redminelib.tests import utils
+from redminelib.tests import get_testdata
 
 import os
 
@@ -21,7 +21,7 @@ from nose.tools import eq_
 
 def test_503():
     rs = RedmineScraper("http://bugs.foocorp.net/")
-    data = open(os.path.join(utils.get_testdata(), "503.html")).read()
+    data = open(os.path.join(get_testdata(), "503.html")).read()
     issue = rs.parse_issue(data)
 
     # extracted
