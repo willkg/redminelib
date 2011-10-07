@@ -1,0 +1,44 @@
+#!/usr/bin/python
+
+#######################################################################
+# This file is part of redminelib.
+#
+# Copyright (C) 2011 Will Kahn-Greene
+#
+# redminelib is distributed under the MIT license.  See the file
+# COPYING for distribution details.
+#######################################################################
+
+"""
+This is a script allowing people to use and test redminelib through
+the command line.
+"""
+
+import sys
+import redminelib
+
+USAGE = 'Usage: redminelib-cmd BUG-URL'
+DESC = """
+Does an HTTP GET request on the given bug url, parses the page,
+and prints to stdout the details of the bug.
+"""
+
+
+def main(argv):
+    if not argv:
+       print USAGE
+       return 1
+
+    if argv[0] == '--help':
+        print USAGE
+        print DESC
+        return 0
+
+    rs = redminelib.RedmineScraper()
+    data = rs.get_issue(argv[0])
+    print redminelib.issue_to_string(data)
+    return 0
+
+
+if __name__ == '__main__':
+   sys.exit(main(sys.argv[1:]))

@@ -12,7 +12,7 @@ import re
 import os
 
 
-READMEFILE = "README"
+READMEFILE = "README.rst"
 VERSIONFILE = os.path.join("redminelib", "_version.py")
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 
@@ -23,7 +23,8 @@ def get_version():
     if mo:
         return mo.group(1)
     else:
-        raise RuntimeError("Unable to find version string in %s." % VERSIONFILE)
+        raise RuntimeError(
+            "Unable to find version string in %s." % VERSIONFILE)
 
 
 setup(
@@ -37,10 +38,9 @@ setup(
     keywords="redmine scraper",
     zip_safe=True,
     packages=find_packages(),
-    test_suite="nose.collector",
+    scripts=['scripts/redminelib-cmd'],
     install_requires=[
         "html2text",
-        "nose",
         "lxml",
         ]
     )
