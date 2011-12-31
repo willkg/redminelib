@@ -189,9 +189,11 @@ class RedmineScraper:
 
     def extract_description(self, root):
         details = root.cssselect("div.details")[0]
-        desc = details.cssselect("div.wiki")[0]
+        desc = details.cssselect("div.wiki")
+        if len(desc) == 0:
+            return ""
         # FIXME - should convert this to something useful somehow
-        return textify(desc)
+        return textify(desc[0])
 
     def extract_attributes(self, root):
         details = root.cssselect("div.details")[0]
@@ -216,9 +218,33 @@ class RedmineScraper:
         relation = {}
 
         td = elem_tr.cssselect("td")[0]
-        issue_id = td.cssselect("a")[0]
-        relation["id"] = issue_id.text.split("#")[1]
-        relation["relation"] = td.text.split(" ")[0]
+        issue_id = td.cssselect("a")
+        if issue_id:
+            issue_id = issue_id[0]
+            relation["id"] = issue_id.text.split("#")[1]
+            relation["relation"] = td.text.split(" ")[0]
+        else:
+            # TODO: We're in this weird situation where lxml can't
+            # find the right <td>.  So I'm hacking this by hand.
+            elem_tr_str = lxml.html.tostring(elem_tr)
+            if "blocked by" in elem_tr_str:
+                relation["relation"] = "blocked"
+            elif "blocks" in elem_tr_str:
+                relation["relation"] = "blocks"
+            elif "related to" in elem_tr_str:
+                relation["relation"] = "related"
+            elif "duplicated by" in elem_tr_str:
+                relation["relation"] = "duplicated"
+            elif "duplicates" in elem_tr_str:
+                relation["relation"] = "duplicates"
+            elif "follows" in elem_tr_str:
+                relation["relation"] = "follows"
+            elif "precedes" in elem_tr_str:
+                relation["relation"] = "precedes"
+            else:
+                raise ValueError("unrecognized relation--help!")
+            issue_id = elem_tr.cssselect("a")[0]
+            relation["id"] = issue_id.text.split("#")[1]
 
         return relation
 
@@ -308,33 +334,36 @@ class RedmineScraper:
         # extracts individual change_property items for this history
         # item.  the user can change multiple properties all at once.
         change_properties = []
-        changelist = elem_div.cssselect("ul")[0]
-        for change in changelist.cssselect("li"):
-            prop_name = change.cssselect("strong")[0]
-            if prop_name.text == "File":
-                # a file was added.  so we stick the filename in
-                # the newvalue field.
-                filename = change.cssselect("a")[0].text
-                change_properties.append({
-                        "property": prop_name.text,
-                        "oldvalue": "",
-                        "newvalue": filename
-                        })
-            else:
-                values = change.cssselect("i")
+        changelist = elem_div.cssselect("ul.details")
+        if changelist:
+            changelist = changelist[0]
 
-                if len(values) == 1:
+            for change in changelist.cssselect("li"):
+                prop_name = change.cssselect("strong")[0]
+                if prop_name.text == "File":
+                    # a file was added.  so we stick the filename in
+                    # the newvalue field.
+                    filename = change.cssselect("a")[0].text
                     change_properties.append({
                             "property": prop_name.text,
                             "oldvalue": "",
-                            "newvalue": values[0].text
+                            "newvalue": filename
                             })
                 else:
-                    change_properties.append({
-                            "property": prop_name.text,
-                            "oldvalue": values[0].text,
-                            "newvalue": values[1].text
-                            })
+                    values = change.cssselect("i")
+
+                    if len(values) == 1:
+                        change_properties.append({
+                                "property": prop_name.text,
+                                "oldvalue": "",
+                                "newvalue": values[0].text
+                                })
+                    else:
+                        change_properties.append({
+                                "property": prop_name.text,
+                                "oldvalue": values[0].text,
+                                "newvalue": values[1].text
+                                })
 
         history_item["properties"] = change_properties
 

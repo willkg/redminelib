@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>GNU MediaGoblin - Feature #716: Apache FCGI documentation In Manual - Foo Communications</title>
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token"/>
+<meta name="csrf-token" content="dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4="/>
+<link rel='shortcut icon' href='/favicon.ico?1321015678' />
+<link href="/themes/alternate/stylesheets/application.css?1321015678" media="all" rel="stylesheet" type="text/css" />
+
+<script src="/javascripts/prototype.js?1251746896" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1254993814" type="text/javascript"></script>
+<script src="/javascripts/application.js?1321015678" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+Event.observe(window, 'load', function(){ new WarnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+<!--[if IE 6]>
+    <style type="text/css">
+      * html body{ width: expression( document.documentElement.clientWidth < 900 ? '900px' : '100%' ); }
+      body {behavior: url(/stylesheets/csshover.htc?1321015678);}
+    </style>
+<![endif]-->
+
+<!-- page specific tags -->
+<script src="/javascripts/jstoolbar/jstoolbar.js?1321015678" type="text/javascript"></script><script src="/javascripts/jstoolbar/textile.js?1321015678" type="text/javascript"></script><script src="/javascripts/jstoolbar/lang/jstoolbar-en.js?1321015678" type="text/javascript"></script><link href="/stylesheets/jstoolbar.css?1321015678" media="screen" rel="stylesheet" type="text/css" /><script src="/javascripts/calendar/calendar.js?1321015678" type="text/javascript"></script><script src="/javascripts/calendar/lang/calendar-en.js?1321015678" type="text/javascript"></script><script type="text/javascript">
+//<![CDATA[
+
+//]]>
+</script><script src="/javascripts/calendar/calendar-setup.js?1321015678" type="text/javascript"></script><link href="/stylesheets/calendar.css?1321015678" media="screen" rel="stylesheet" type="text/css" />
+    <link href="http://bugs.foocorp.net/issues/716.atom?key=51b16a0198c3116519b5efbcb775129c617ea423" rel="alternate" title="GNU MediaGoblin - Feature #716: Apache FCGI documentation In Manual" type="application/atom+xml" />
+    <link href="/stylesheets/scm.css?1321015678" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/context_menu.js?1321015678" type="text/javascript"></script>
+    <link href="/stylesheets/context_menu.css?1321015678" media="screen" rel="stylesheet" type="text/css" />
+    
+</head>
+<body class="theme-Alternate controller-issues action-show">
+<div id="wrapper">
+<div id="wrapper2">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a href="/my/account" class="my-account">My account</a></li>
+<li><a href="/logout" class="logout">Sign out</a></li></ul>    </div>
+    <div id="loggedas">Logged in as <a href="/users/504">willkg</a></div>
+    <ul><li><a href="/" class="home">Home</a></li>
+<li><a href="/my/page" class="my-page">My page</a></li>
+<li><a href="/projects" class="projects">Projects</a></li>
+<li><a href="http://www.redmine.org/guide" class="help">Help</a></li></ul></div>
+      
+<div id="header">
+    
+    <div id="quick-search">
+        <form action="/search/index/mediagoblin" method="get">
+        <input name="issues" type="hidden" value="1" />
+        <a href="/search/index/mediagoblin" accesskey="4">Search</a>:
+        <input accesskey="f" class="small" id="q" name="q" size="20" type="text" />
+        </form>
+        <select onchange="if (this.value != '') { window.location = this.value; }"><option value=''>Jump to a project...</option><option value="" disabled="disabled">---</option><option selected="selected" value="/projects/mediagoblin?jump=issues">GNU MediaGoblin</option></select>
+    </div>
+    
+    
+    <h1>GNU MediaGoblin</h1>
+    
+    
+    <div id="main-menu">
+        <ul><li><a href="/projects/mediagoblin" class="overview">Overview</a></li>
+<li><a href="/projects/mediagoblin/activity" class="activity">Activity</a></li>
+<li><a href="/projects/mediagoblin/roadmap" class="roadmap">Roadmap</a></li>
+<li><a href="/projects/mediagoblin/issues" class="issues selected">Issues</a></li>
+<li><a href="/projects/mediagoblin/issues/new" accesskey="7" class="new-issue">New issue</a></li>
+<li><a href="/projects/mediagoblin/issues/gantt" class="gantt">Gantt</a></li>
+<li><a href="/projects/mediagoblin/issues/calendar" class="calendar">Calendar</a></li>
+<li><a href="/projects/mediagoblin/news" class="news">News</a></li>
+<li><a href="/projects/mediagoblin/documents" class="documents">Documents</a></li>
+<li><a href="/projects/mediagoblin/wiki" class="wiki">Wiki</a></li>
+<li><a href="/projects/mediagoblin/files" class="files">Files</a></li>
+<li><a href="/projects/mediagoblin/settings" class="settings">Settings</a></li></ul>
+    </div>
+    
+</div>
+
+<div class="" id="main">
+    <div id="sidebar">        
+        
+  <h3>Issues</h3>
+<a href="/projects/mediagoblin/issues?set_filter=1">View all issues</a><br />
+
+<a href="/projects/mediagoblin/issues/report">Summary</a><br />
+
+
+
+
+	<a href="/projects/mediagoblin/issues/calendar">Calendar</a><br />
+
+
+	<a href="/projects/mediagoblin/issues/gantt">Gantt</a><br />
+
+
+
+<h3>Custom queries</h3><a href="/projects/mediagoblin/issues?query_id=6">Exclude feature ideas</a><br /><a href="/projects/mediagoblin/issues?query_id=2">Graphic design tickets</a><br /><a href="/projects/mediagoblin/issues?query_id=1">Open tickets</a><br /><a href="/projects/mediagoblin/issues?query_id=3">Simple Issues</a>
+
+
+
+  
+    <div id="watchers">
+      <div class="contextual">
+<a href="#" onclick="new Ajax.Request('/watchers/new?object_id=716&amp;object_type=issue', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=')}); return false;">Add</a>
+</div>
+
+<h3>Watchers (1)</h3>
+
+
+
+<ul><li><img class="gravatar" alt="" title="" width="16" height="16" src="http://www.gravatar.com/avatar/dbe28e1b411e66dcf38ea815843d3740?rating=PG&amp;size=16&amp;default=identicon" /><a href="/users/546">Blaise Alleyne</a> <a class="delete" href="/watchers/destroy?object_id=716&amp;object_type=issue&amp;user_id=546" onclick="new Ajax.Request('/watchers/destroy?object_id=716&amp;object_type=issue&amp;user_id=546', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=')}); return false;" style="vertical-align: middle"><img alt="Delete" src="/images/delete.png?1321015678" /></a></li></ul>
+
+    </div>
+  
+
+        
+    </div>
+    
+    <div id="content">
+				
+        <div class="contextual">
+<a href="/issues/716/edit" accesskey="e" class="icon icon-edit" onclick="showAndScrollTo(&quot;update&quot;, &quot;notes&quot;); return false;">Update</a>
+<a href="/issues/716/time_entries/new" class="icon icon-time-add">Log time</a>
+<span class="issue-716-watcher"><a class="icon icon-fav-off" href="/watchers/watch?object_id=716&amp;object_type=issue" onclick="new Ajax.Request('/watchers/watch?object_id=716&amp;object_type=issue', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=')}); return false;">Watch</a></span>
+<a href="/projects/mediagoblin/issues/716/copy" class="icon icon-duplicate">Duplicate</a>
+<a href="/issue_moves/new/716?copy_options%5Bcopy%5D=t" class="icon icon-copy">Copy</a>
+<a href="/issue_moves/new/716" class="icon icon-move">Move</a>
+<a href="/issues/716/destroy" class="icon icon-del" onclick="if (confirm('Are you sure you want to delete the selected issue(s)?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'authenticity_token'); s.setAttribute('value', 'dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4='); f.appendChild(s);f.submit(); };return false;">Delete</a>
+</div>
+
+
+<h2>Feature #716</h2>
+
+<div class="issue status-1 priority-2 details">
+        <img class="gravatar" alt="" title="" width="50" height="50" src="http://www.gravatar.com/avatar/195394734c68f6f266e5b0daf1ec4ceb?rating=PG&amp;size=50&amp;default=identicon" />
+      
+<div class="subject">      
+<div><h3>Apache FCGI documentation In Manual</h3></div>
+</div>
+        <p class="author">
+        Added by <a href="/users/773">Sam Kleinman</a> <a href="/projects/mediagoblin/activity?from=2011-12-20" title="12/20/2011 10:23 am">10 days</a> ago.
+        
+        Updated <a href="/projects/mediagoblin/activity?from=2011-12-22" title="12/22/2011 06:29 pm">8 days</a> ago.
+        
+        </p>
+
+<table class="attributes">
+<tr>
+    <th class="status">Status:</th><td class="status">New</td>
+    <th class="start-date">Start date:</th><td class="start-date">12/20/2011</td>
+</tr>
+<tr>
+    <th class="priority">Priority:</th><td class="priority">Normal</td>
+    <th class="due-date">Due date:</th><td class="due-date"></td>
+</tr>
+<tr>
+    <th class="assigned-to">Assignee:</th><td class="assigned-to"><img class="gravatar" alt="" title="" width="14" height="14" src="http://www.gravatar.com/avatar/195394734c68f6f266e5b0daf1ec4ceb?rating=PG&amp;size=14&amp;default=identicon" /><a href="/users/773">Sam Kleinman</a></td>
+    <th class="progress">% Done:</th><td class="progress"><table class="progress" style="width: 80px;"><tr><td class="todo" style="width: 100%;"></td></tr></table><p class="pourcent">0%</p></td>
+</tr>
+<tr>
+    <th class="category">Category:</th><td class="category">Documentation</td>
+    
+    <th class="spent-time">Spent time:</th>
+    <td class="spent-time">-</td>
+    
+</tr>
+<tr>
+    <th class="fixed-version">Target version:</th><td class="fixed-version">-</td>
+    
+    <th class="estimated-hours">Estimated time:</th><td class="estimated-hours">2.00 hours</td>
+    
+</tr>
+
+
+</table>
+
+
+
+
+
+
+
+<hr />
+<div id="relations">
+<div class="contextual">
+
+  <a href="#" onclick="Element.toggle('new-relation-form'); Form.Element.focus('relation_issue_to_id'); return false;">Add</a>
+
+</div>
+
+<p><strong>Related issues</strong></p>
+
+
+
+<form action="/issues/716/relations/716" id="new-relation-form" method="post" onsubmit="new Ajax.Request('/issues/716/relations/716', {asynchronous:true, evalScripts:true, method:'post', onComplete:function(request){Form.Element.focus('relation_issue_to_id');}, parameters:Form.serialize(this)}); return false;" style="display: none;"><div style="margin:0;padding:0;display:inline"><input name="authenticity_token" type="hidden" value="dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=" /></div>
+
+
+<p><select id="relation_relation_type" name="relation[relation_type]" onchange="setPredecessorFieldsVisibility();"><option value="relates">related to</option>
+<option value="duplicates">duplicates</option>
+<option value="duplicated">duplicated by</option>
+<option value="blocks">blocks</option>
+<option value="blocked">blocked by</option>
+<option value="precedes">precedes</option>
+<option value="follows">follows</option></select>
+Issue #<input id="relation_issue_to_id" name="relation[issue_to_id]" size="10" type="text" />
+<div id="related_issue_candidates" class="autocomplete"></div>
+<script type="text/javascript">
+//<![CDATA[
+observeRelatedIssueField('/issues/auto_complete?id=716&amp;project_id=mediagoblin')
+//]]>
+</script>
+<span id="predecessor_fields" style="display:none;">
+Delay: <input id="relation_delay" name="relation[delay]" size="3" type="text" /> days
+</span>
+<input name="commit" type="submit" value="Add" />
+<a href="#" onclick="Element.toggle('new-relation-form'); this.blur(); return false;">Cancel</a>
+</p>
+
+<script type="text/javascript">
+//<![CDATA[
+setPredecessorFieldsVisibility();
+//]]>
+</script>
+
+</form>
+
+</div>
+
+
+</div>
+
+
+
+
+<div id="history">
+<h3>History</h3>
+
+  <div id="change-1996" class="journal has-notes">
+    <h4><div class="journal-link"><a href="/issues/716#note-1">#1</a></div>
+    <img class="gravatar" alt="" title="" width="24" height="24" src="http://www.gravatar.com/avatar/dbe28e1b411e66dcf38ea815843d3740?rating=PG&amp;size=24&amp;default=identicon" />
+    <a name="note-1"></a>
+		Updated by <a href="/users/546">Blaise Alleyne</a> <a href="/projects/mediagoblin/activity?from=2011-12-22" title="12/22/2011 06:29 pm">8 days</a> ago</h4>
+    
+    
+    <div class="wiki editable" id="journal-1996-notes"><div class="contextual"><a href="#" onclick="new Ajax.Request('/issues/716/quoted?journal_id=1996', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=')}); return false;" title="Quote"><img alt="Comment" src="/images/comment.png?1321015678" /></a> <a href="#" onclick="new Ajax.Request('/journals/edit/1996', {asynchronous:true, evalScripts:true, method:'get'}); return false;" title="Edit"><img alt="Edit" src="/images/edit.png?1321015678" /></a></div><p>I'm assuming you've noticed the wiki config examples: <a class="external" href="http://wiki.mediagoblin.org/Deployment">http://wiki.mediagoblin.org/Deployment</a></p>
+
+
+	<p>I'm running with libapache2-mod-fcgi right now, but planning to switch to libapache2-mod-fcgid shortly. Happy to help if any testing is needed.</p></div>
+  </div>
+  
+
+
+
+
+</div>
+
+
+
+<div style="clear: both;"></div>
+<div class="contextual">
+<a href="/issues/716/edit" accesskey="e" class="icon icon-edit" onclick="showAndScrollTo(&quot;update&quot;, &quot;notes&quot;); return false;">Update</a>
+<a href="/issues/716/time_entries/new" class="icon icon-time-add">Log time</a>
+<span class="issue-716-watcher"><a class="icon icon-fav-off" href="/watchers/watch?object_id=716&amp;object_type=issue" onclick="new Ajax.Request('/watchers/watch?object_id=716&amp;object_type=issue', {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=')}); return false;">Watch</a></span>
+<a href="/projects/mediagoblin/issues/716/copy" class="icon icon-duplicate">Duplicate</a>
+<a href="/issue_moves/new/716?copy_options%5Bcopy%5D=t" class="icon icon-copy">Copy</a>
+<a href="/issue_moves/new/716" class="icon icon-move">Move</a>
+<a href="/issues/716/destroy" class="icon icon-del" onclick="if (confirm('Are you sure you want to delete the selected issue(s)?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'authenticity_token'); s.setAttribute('value', 'dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4='); f.appendChild(s);f.submit(); };return false;">Delete</a>
+</div>
+
+
+<div style="clear: both;"></div>
+
+  <div id="update" style="display:none;">
+  <h3>Update</h3>
+  <form action="/issues/716" enctype="multipart/form-data" id="issue-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=" /></div>
+    
+    <div class="box">
+    
+        <fieldset class="tabular"><legend>Change properties
+        
+        <small>(<a href="/issues/716" onclick="Effect.toggle(&quot;issue_descr_fields&quot;, &quot;appear&quot;, {duration:0.3}); return false;">More</a>)</small>
+        
+        </legend>
+        
+
+<div id="issue_descr_fields" style="display:none">
+
+<p><label for="issue_tracker_id">Tracker<span class="required"> *</span></label><select id="issue_tracker_id" name="issue[tracker_id]"><option value="2" selected="selected">Feature</option>
+<option value="3">Support</option>
+<option value="1">Bug</option></select></p>
+<script type="text/javascript">
+//<![CDATA[
+new Form.Element.EventObserver('issue_tracker_id', function(element, value) {new Ajax.Updater('attributes', '/issues/new/716?project_id=mediagoblin', {asynchronous:true, evalScripts:true, parameters:Form.serialize('issue-form') + '&authenticity_token=' + encodeURIComponent('dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=')})})
+//]]>
+</script>
+
+<p><label for="issue_subject">Subject<span class="required"> *</span></label><input id="issue_subject" name="issue[subject]" size="80" type="text" value="Apache FCGI documentation In Manual" /></p>
+<p><label for="issue_description">Description</label><textarea accesskey="e" class="wiki-edit" cols="60" id="issue_description" name="issue[description]" rows="10"></textarea></p>
+</div>
+
+<div id="attributes" class="attributes">
+	
+
+<div class="splitcontentleft">
+
+<p><label for="issue_status_id">Status<span class="required"> *</span></label><select id="issue_status_id" name="issue[status_id]"><option value="1" selected="selected">New</option>
+<option value="2">In Progress</option>
+<option value="3">Resolved</option>
+<option value="4">Feedback</option>
+<option value="5">Closed</option>
+<option value="6">Rejected</option></select></p>
+
+
+<p><label for="issue_priority_id">Priority<span class="required"> *</span></label><select id="issue_priority_id" name="issue[priority_id]"><option value="3">Low</option>
+<option value="4" selected="selected">Normal</option>
+<option value="5">High</option>
+<option value="6">Urgent</option>
+<option value="7">Immediate</option></select></p>
+<p><label for="issue_assigned_to_id">Assignee</label><select id="issue_assigned_to_id" name="issue[assigned_to_id]"><option value=""></option>
+<option value="565">Aaron Williamson</option>
+<option value="637">Alejandro Villanueva</option>
+<option value="537">Aleksandar Micovic</option>
+<option value="274">Aleksej Serdjukov</option>
+<option value="765">Alex Camelio</option>
+<option value="558">Alexis Métaireau</option>
+<option value="563">Ami Ganguli</option>
+<option value="538">Aurelio Sanabria</option>
+<option value="576">Bernhard Keller</option>
+<option value="616">Caleb Davis</option>
+<option value="640">Chris Moylan</option>
+<option value="539">Chris Wilson</option>
+<option value="485">Christopher Webber</option>
+<option value="948">Corey Farwell</option>
+<option value="517">Deb Nicholson</option>
+<option value="566">Elvenlord Elrond</option>
+<option value="271">Erkan Yilmaz</option>
+<option value="946">Inconexo ø</option>
+<option value="615">Itsa Secret</option>
+<option value="755">Jacobo Nájera</option>
+<option value="603">Jakob Kramer</option>
+<option value="743">Jan-Christoph Borchardt</option>
+<option value="658">Jarred de Beer</option>
+<option value="542">Jef van Schendel</option>
+<option value="655">Jim Campbell</option>
+<option value="536">Joar Wandborg</option>
+<option value="789">John Kordich</option>
+<option value="754">Juan Gutmann</option>
+<option value="557">Juan José González</option>
+<option value="735">Karen Rustad</option>
+<option value="722">Larisa Hoffenbecker</option>
+<option value="947">Manolinux aka Mu</option>
+<option value="766">Mark Holmquist</option>
+<option value="545">Matt Johnson</option>
+<option value="1">Matt Lee</option>
+<option value="792">Nathan Yergler</option>
+<option value="756">Nelson Pavlosky</option>
+<option value="684">Odin Hørthe Omdal</option>
+<option value="744">Osama Khalid</option>
+<option value="700">Rasmus Larsson</option>
+<option value="5">Rob Myers</option>
+<option value="746">Robin Holler</option>
+<option value="773" selected="selected">Sam Kleinman</option>
+<option value="560">Sebastian Spaeth</option>
+<option value="759">Shawn Khan</option>
+<option value="543">Tomaz Kovacic</option>
+<option value="697">Vinzenz Vietzke</option>
+<option value="504">Will Kahn-Greene</option></select></p>
+
+<p><label for="issue_category_id">Category</label><select id="issue_category_id" name="issue[category_id]"><option value=""></option>
+<option value="17" selected="selected">Documentation</option>
+<option value="18">Feature idea</option>
+<option value="14">Graphic Design / UI</option>
+<option value="16">Infrastructure</option>
+<option value="15">Programming</option></select>
+<a href="/issues/716" onclick="promptToRemote('New category', 'category[name]', '/projects/mediagoblin/issue_categories/new'); return false;" tabindex="199" title="New category"><img alt="Add" src="/images/add.png?1321015678" style="vertical-align: middle;" /></a></p>
+
+
+<p><label for="issue_fixed_version_id">Target version</label><select id="issue_fixed_version_id" name="issue[fixed_version_id]"><option value=""></option>
+<option value="8">0.2.1</option></select>
+<a href="/issues/716" onclick="promptToRemote('New version', 'version[name]', '/projects/mediagoblin/versions'); return false;" tabindex="200" title="New version"><img alt="Add" src="/images/add.png?1321015678" style="vertical-align: middle;" /></a>
+</p>
+
+</div>
+
+<div class="splitcontentright">
+
+<p><label for="issue_start_date">Start date</label><input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2011-12-20" /><img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/images/calendar.png?1321015678" /><script type="text/javascript">
+//<![CDATA[
+Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' });
+//]]>
+</script></p>
+<p><label for="issue_due_date">Due date</label><input id="issue_due_date" name="issue[due_date]" size="10" type="text" /><img alt="Calendar" class="calendar-trigger" id="issue_due_date_trigger" src="/images/calendar.png?1321015678" /><script type="text/javascript">
+//<![CDATA[
+Calendar.setup({inputField : 'issue_due_date', ifFormat : '%Y-%m-%d', button : 'issue_due_date_trigger' });
+//]]>
+</script></p>
+<p><label for="issue_estimated_hours">Estimated time</label><input id="issue_estimated_hours" name="issue[estimated_hours]" size="3" type="text" value="2" /> Hours</p>
+
+<p><label for="issue_done_ratio">% Done</label><select id="issue_done_ratio" name="issue[done_ratio]"><option value="0" selected="selected">0 %</option>
+<option value="10">10 %</option>
+<option value="20">20 %</option>
+<option value="30">30 %</option>
+<option value="40">40 %</option>
+<option value="50">50 %</option>
+<option value="60">60 %</option>
+<option value="70">70 %</option>
+<option value="80">80 %</option>
+<option value="90">90 %</option>
+<option value="100">100 %</option></select></p>
+
+</div>
+
+<div style="clear:both;"> </div>
+<div class="splitcontentleft">
+
+
+</div>
+<div style="clear:both;"> </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+var wikiToolbar = new jsToolBar($('issue_description')); wikiToolbar.setHelpLink('<a href=\"/help/wiki_syntax.html\" onclick=\"window.open(&quot;/help/wiki_syntax.html&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=300, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;\">Text formatting<\/a>'); wikiToolbar.draw();
+//]]>
+</script>
+
+        </fieldset>
+    
+    
+        <fieldset class="tabular"><legend>Log time</legend>
+        
+        <div class="splitcontentleft">
+        <p><label for="time_entry_hours">Spent time</label><input id="time_entry_hours" label="label_spent_time" name="time_entry[hours]" size="6" type="text" /> Hours</p>
+        </div>
+        <div class="splitcontentright">
+        <p><label for="time_entry_activity_id">Activity</label><select id="time_entry_activity_id" name="time_entry[activity_id]"><option value="">--- Please select ---</option>
+<option value="8">Design</option>
+<option value="9">Development</option></select></p>
+        </div>
+        <p><label for="time_entry_comments">Comment</label><input id="time_entry_comments" name="time_entry[comments]" size="60" type="text" /></p>
+        
+        
+    </fieldset>
+    
+    
+    <fieldset><legend>Notes</legend>
+    <textarea class="wiki-edit" cols="60" id="notes" name="notes" rows="10"></textarea>
+    <script type="text/javascript">
+//<![CDATA[
+var wikiToolbar = new jsToolBar($('notes')); wikiToolbar.setHelpLink('<a href=\"/help/wiki_syntax.html\" onclick=\"window.open(&quot;/help/wiki_syntax.html&quot;, &quot;&quot;, &quot;resizable=yes, location=no, width=300, height=640, menubar=no, status=no, scrollbars=yes&quot;); return false;\">Text formatting<\/a>'); wikiToolbar.draw();
+//]]>
+</script>
+    
+    
+    <p>Files<br /><span id="attachments_fields">
+<input name="attachments[1][file]" size="30" type="file" /><label class="inline"><span id="attachment_description_label_content">Optional description</span><input name="attachments[1][description]" size="60" type="text" value="" />
+</label>
+</span>
+<br />
+<small><a href="#" onclick="addFileField(); return false;">Add another file</a>
+(Maximum size: 200 kB)
+</small>
+</p>
+    </fieldset>
+    </div>
+    
+    <input id="issue_lock_version" name="issue[lock_version]" type="hidden" value="1" />
+    <input name="commit" type="submit" value="Submit" />
+    <a accesskey="r" href="#" onclick="new Ajax.Updater('preview', '/issues/preview/716?project_id=mediagoblin', {asynchronous:true, evalScripts:true, method:'post', onComplete:function(request){Element.scrollTo('preview')}, parameters:Form.serialize(&quot;issue-form&quot;) + '&amp;authenticity_token=' + encodeURIComponent('dV4u3DiIuELuTMTRyutO+YKrRNG3Zc7yr8N1oC2JBv4=')}); return false;">Preview</a>
+</form>
+
+<div id="preview" class="wiki"></div>
+
+  </div>
+
+
+<p class="other-formats">Also available in:
+	<span><a href="/issues/716.atom?key=51b16a0198c3116519b5efbcb775129c617ea423" class="atom" rel="nofollow">Atom</a></span>
+	<span><a href="/issues/716.pdf" class="pdf" rel="nofollow">PDF</a></span>
+</p>
+
+
+
+
+
+
+<div id="context-menu" style="display: none;"></div>
+<script type="text/javascript">
+//<![CDATA[
+new ContextMenu('/issues/context_menu')
+//]]>
+</script>
+
+        
+				<div style="clear:both;"></div>
+    </div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+	
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="http://www.redmine.org/">Redmine</a> &copy; 2006-2011 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
