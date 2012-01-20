@@ -17,6 +17,7 @@ import time
 import lxml.etree
 import lxml.html
 from html2text import html2text
+import logging
 
 
 def wrap_text(text):
@@ -349,6 +350,11 @@ class RedmineScraper:
                             "oldvalue": "",
                             "newvalue": filename
                             })
+                elif prop_name.text == 'Description':
+                    # description changed. redmine has a link to view
+                    # the differences, but we don't really care, so
+                    # we're going to skip it.
+                    pass
                 else:
                     values = change.cssselect("i")
 
