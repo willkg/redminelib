@@ -27,7 +27,7 @@ def test_733():
     eq_(issue["creation-date"], u'01/08/2012 10:24 am')
     eq_(issue["last-updated-date"], u'01/10/2012 09:41 am')
 
-    eq_(issue["description"], u'The button (right above the comment field) is intended for users who will have\nto log in to comment. (\n\n')
+    eq_(issue["description"], u'The button (right above the comment field) is intended for users who will have to log in to comment. ( \n')
 
     # details table
     eq_(issue["priority"], "Normal")

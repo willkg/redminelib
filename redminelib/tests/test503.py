@@ -31,7 +31,7 @@ def test_503():
     eq_(issue["creation-date"], "08/20/2011 05:32 pm")
     eq_(issue["last-updated-date"], "08/22/2011 09:29 am")
 
-    eq_(issue["description"], u'Speaks for itself. If you only have one piece of media for whatever reason,\nthe navigation still shows up. But both of the buttons are disabled, so they\nmay just as well be gone completely.\n\nI have no idea how hard this is to do though.\n\nAttached is a screenshot.\n\n')
+    eq_(issue["description"], u'Speaks for itself. If you only have one piece of media for whatever reason, the navigation still shows up. But both of the buttons are disabled, so they may just as well be gone completely.\n\nI have no idea how hard this is to do though.\n\nAttached is a screenshot.\n')
 
     # details table
     eq_(issue["priority"], "Normal")
@@ -60,7 +60,7 @@ def test_503():
     eq_(hist1["author"], "Jef van Schendel")
     props = hist1["properties"]
     eq_(len(props), 0)
-    eq_(hist1["comment"], u'Typo in the ticket title: "not disappear" should of course be "not appear".\n\n')
+    eq_(hist1["comment"], u'Typo in the ticket title: "not disappear" should of course be "not appear".\n')
 
     hist2 = issue["history"][1]
     eq_(hist2["date"], "08/20/2011 10:37 pm")
@@ -93,4 +93,4 @@ def test_503():
             "oldvalue": "0",
             "newvalue": "50",
             })
-    eq_(hist3["comment"], u"Jef, like this?\n\n[https://gitorious.org/~cfdv/mediagoblin/cfdvs-\nmediagoblin/commit/e3df834a8a22a45ba77940efbd083c7d5a23764e][1]\n\nEDIT: Chris pointed out you didn't want the Xs to go away completely, just in\nthe case where the user had one media item only. Oops! How about this one?\n\n[https://gitorious.org/~cfdv/mediagoblin/cfdvs-\nmediagoblin/commit/0a100476b24d81355342cae5320e1a5a6c83014d][2]\n\n   [1]: https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/e3df834a8a22a45ba77940efbd083c7d5a23764e\n   [2]: https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/0a100476b24d81355342cae5320e1a5a6c83014d\n\n")
+    eq_(hist3["comment"], u"Jef, like this?\n\n[https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/e3df834a8a22a45ba77940efbd083c7d5a23764e][1]\n\nEDIT: Chris pointed out you didn't want the Xs to go away completely, just in the case where the user had one media item only. Oops! How about this one?\n\n[https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/0a100476b24d81355342cae5320e1a5a6c83014d][2]\n\n   [1]: https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/e3df834a8a22a45ba77940efbd083c7d5a23764e\n   [2]: https://gitorious.org/~cfdv/mediagoblin/cfdvs-mediagoblin/commit/0a100476b24d81355342cae5320e1a5a6c83014d\n\n")

@@ -27,7 +27,7 @@ def test_725():
     eq_(issue["creation-date"], "12/28/2011 06:44 pm")
     eq_(issue["last-updated-date"], "12/29/2011 09:45 am")
 
-    eq_(issue["description"], u'Setup: I have a virtual host for media.macno.org and I use mod_proxy to access\nmy mediagoblin server (which listen on 127.0.0.1:6543)\n\nIssue: atom feed self link uses a wrong url\n\nFor example requesting [http://media.macno.org/u/macno/atom/][1] returns <link\nhref="http://127.0.0.1:6543/u/macno/atom/" rel="self" />\n\n   [1]: http://media.macno.org/u/macno/atom/\n\n')
+    eq_(issue["description"], u'Setup: I have a virtual host for media.macno.org and I use mod_proxy to access my mediagoblin server (which listen on 127.0.0.1:6543)\n\nIssue: atom feed self link uses a wrong url\n\nFor example requesting [http://media.macno.org/u/macno/atom/][1] returns <link href="http://127.0.0.1:6543/u/macno/atom/" rel="self" />\n\n   [1]: http://media.macno.org/u/macno/atom/\n\n')
 
     # details table
     eq_(issue["priority"], "Normal")

@@ -30,7 +30,7 @@ def test_491():
     eq_(issue["creation-date"], "08/10/2011 02:32 pm")
     eq_(issue["last-updated-date"], "09/04/2011 09:44 am")
 
-    eq_(issue["description"], "I know I was...There are places in redmine mentioning PEP-8 style guidelines\n([http://www.python.org/dev/peps/pep-0008/][1]), but there is no prominent\nmention in the contributor docs. This suggestion just came up again in IRC.\nThis issue needs:\n\n  * decide where to mention and link to PEP-8\n  * add it to the contributor documentation\n\n   [1]: http://www.python.org/dev/peps/pep-0008/\n\n")
+    eq_(issue["description"], "I know I was...There are places in redmine mentioning PEP-8 style guidelines ([http://www.python.org/dev/peps/pep-0008/][1]), but there is no prominent mention in the contributor docs. This suggestion just came up again in IRC. This issue needs:\n\n  * decide where to mention and link to PEP-8\n  * add it to the contributor documentation\n\n   [1]: http://www.python.org/dev/peps/pep-0008/\n\n")
 
     # details table
     eq_(issue["priority"], "Normal")
@@ -63,7 +63,7 @@ def test_491():
     eq_(hist2["author"], "Will Kahn-Greene")
     props = hist2["properties"]
     eq_(len(props), 1)
-    eq_(hist2["comment"], "Chris and I bandied about what should be in a code style guide for a bit now.\nI'll grab this bug and throw one together soon.\n\n")
+    eq_(hist2["comment"], "Chris and I bandied about what should be in a code style guide for a bit now. I'll grab this bug and throw one together soon.\n")
 
     hist3 = issue["history"][2]
     eq_(hist3["date"], "09/04/2011 09:44 am")
@@ -76,4 +76,4 @@ def test_491():
             "oldvalue": "0.0.5"
             })
 
-    eq_(hist3["comment"], "Bumping this to 0.1.0 since 0.0.5 is out now.\n\n")
+    eq_(hist3["comment"], "Bumping this to 0.1.0 since 0.0.5 is out now.\n")

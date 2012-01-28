@@ -27,7 +27,7 @@ def test_711():
     eq_(issue["creation-date"], "12/14/2011 07:04 pm")
     eq_(issue["last-updated-date"], "12/14/2011 07:30 pm")
 
-    eq_(issue["description"], u"We're finding that our present feeds aren't extensible enough and... well, we\nneed to extend them! Inconexo is already working on this in a branch:\n\n[https://gitorious.org/~inconexo/mediagoblin/inconexos-\nmediagoblin/commits/feed_library][1]\n\nI'll leave comments on that as I read through here.\n\n   [1]: https://gitorious.org/~inconexo/mediagoblin/inconexos-mediagoblin/commits/feed_library\n\n")
+    eq_(issue["description"], u"We're finding that our present feeds aren't extensible enough and... well, we need to extend them! Inconexo is already working on this in a branch:\n\n[https://gitorious.org/~inconexo/mediagoblin/inconexos-mediagoblin/commits/feed_library][1]\n\nI'll leave comments on that as I read through here.\n\n   [1]: https://gitorious.org/~inconexo/mediagoblin/inconexos-mediagoblin/commits/feed_library\n\n")
 
     # details table
     eq_(issue["priority"], "Normal")

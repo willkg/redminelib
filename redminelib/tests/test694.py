@@ -27,7 +27,7 @@ def test_694():
     eq_(issue["creation-date"], "12/04/2011 02:02 pm")
     eq_(issue["last-updated-date"], "12/04/2011 02:02 pm")
 
-    eq_(issue["description"], u'It is convenient for the user to know how big of a file they can upload before\nthey try.\n\n')
+    eq_(issue["description"], u'It is convenient for the user to know how big of a file they can upload before they try.\n')
 
     # details table
     eq_(issue["priority"], "Normal")

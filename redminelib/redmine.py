@@ -16,8 +16,13 @@ from StringIO import StringIO
 import time
 import lxml.etree
 import lxml.html
-from html2text import html2text
-import logging
+import html2text
+
+
+# Setting BODY_WIDTH to 0 prevents html2text from wrapping the results
+# of the Markdown conversion. Amongst other things, it screws it up
+# and wraps mid-link causing some links to break.
+html2text.BODY_WIDTH = 0
 
 
 def wrap_text(text):
@@ -117,7 +122,7 @@ def textify(doc):
 
     :returns: the data formated in Markdown as a string
     """
-    return html2text(lxml.html.tostring(doc).strip())
+    return html2text.html2text(lxml.html.tostring(doc).strip())
 
 
 class RedmineScraper:
